@@ -1,0 +1,86 @@
+ <center>
+      <a data-toggle="modal" href="#aboutModal"> 
+        <img class="img-circle" alt="aboutme" name="aboutme" [src]="userInfo.Avatar"></a>
+      <h3 class="plp-blue-profile">{{userInfo.UserFullName}}</h3>
+</center>
+<!--<legend class="text-center"> <span class="plp-red pull-left">18/1 </span> My Career Goals <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+</legend>-->
+<PLP-nav-header [header]="sectionObject" [report-status]="report"></PLP-nav-header>
+<form [ngFormModel]="personalForm" (ngSubmit)="SavePersonalInfo()">
+    <div *ngIf="isLoading" style="position: fixed; top: 50%; left:50%; z-index: 10;">
+      <i class="fa fa-spinner fa-pulse fa-3x " aria-hidden="true"></i></div>
+       <div class="row" >
+        <div class="col-md-5 form-group"> 
+          <label for="lastName" ><i class="fa fa-user"></i> Last Name: <span class="red-star">**</span>
+           <span *ngIf="lastName.touched && lastName.errors">
+           <span *ngIf="lastName.errors.required" 
+            style="padding-left:10px;text-align:right;color:red;">
+            LastName is required</span> 
+            <span *ngIf="lastName.errors.cannotContainSpace" 
+             style="padding-left:10px;text-align:right;color:red;">
+            LastName cannot contain space </span>
+            <span *ngIf="lastName.errors.invalidChar"   
+            style="padding-left:10px;text-align:right;color:red;">
+              Enter valid last name</span>
+           </span>
+        </label>
+          <input  id="lastName" class="form-control" type="text" ngControl="lastName" 
+          #lastName="ngForm" maxlength="50"
+         [(ngModel)]="userInfo.LastName" [ngModelOptions]="{standalone: true}" />
+           
+        </div>
+        
+        <div class="col-md-5 form-group"> 
+          <label for="firstName"><i class="fa fa-user"></i> First Name: <span class="red-star">**</span>
+            <span *ngIf="firstName.touched && firstName.errors"> 
+              <span *ngIf="firstName.errors.required" style="padding-left:10px;text-align:right;color:red;">
+            FirstName is required</span>
+            <span *ngIf="firstName.errors.invalidChar"   
+            style="padding-left:10px;text-align:right;color:red;">
+               Enter valid first name</span>
+            </span></label>
+          <input id="firstName"  class="form-control" type="text" 
+          ngControl="firstName" #firstName="ngForm" maxlength="50"
+           [(ngModel)]="userInfo.FirstName" [ngModelOptions]="{standalone: true}"/>
+        </div>
+        <div class="col-md-5 form-group"> 
+          <label for="middleName"><i class="fa fa-user"></i> Middle Name:
+           <span *ngIf="middleName.touched && middleName.errors"> 
+            <span *ngIf="middleName.errors.invalidChar"   
+            style="padding-left:10px;text-align:right;color:red;">
+             Enter valid first name</span>
+            </span></label>
+          <input id="middleName" class="form-control" type="text" 
+          ngControl="middleName" #middleName="ngForm" maxlength="50"
+           [(ngModel)]="userInfo.MiddleName" [ngModelOptions]="{standalone: true}"/>
+        </div>
+           <div class="col-md-5 form-group"> 
+          <label for="email"><i class="fa fa-envelope"></i> Email: 
+          <span *ngIf="email.touched && !email.valid" >
+               <span *ngIf="email.errors.required" 
+               style="padding-left:10px;text-align:right;color:red;">Email Address is required.</span>
+               <span *ngIf="email.errors.incorrectMailFormat" 
+               style="padding-left:10px;text-align:right;color:red;">Email format is invalid.</span>
+          </span>
+          </label>
+          <input id="email" class="form-control" type="text" ngControl="email" #email="ngForm" maxlength="50"
+           [(ngModel)]="userInfo.Email" [ngModelOptions]="{standalone: true}"/>
+        </div>
+        <div class="col-md-5 form-group"> 
+          <label for="gradYear"><i class="fa fa-calendar "></i> Grad year: <span class="red-star">**</span>
+           <span *ngIf="gradYear.touched && gradYear.errors"> 
+             <span *ngIf="gradYear.errors.required" 
+             style="padding-left:10px;text-align:right;color:red;">
+            GradYear is required</span>
+            </span></label>
+          <input id="gradYear" class="form-control" type="text" 
+          ngControl="gradYear" #gradYear="ngForm" maxlength="4"
+           [(ngModel)]="userInfo.GradYear" [ngModelOptions]="{standalone: true}"/>
+        </div>
+
+        <div *ngIf="(report=='')" class="col-md-12 form-group">
+          <button type="Submit" class="btn btn-red-plp" [disabled]="!personalForm.valid"><i class="fa fa-refresh white-color"> </i> Update Personal Information</button>
+        </div>
+      </div>
+    </form>
+   

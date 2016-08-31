@@ -1,0 +1,29 @@
+
+        <div class="col-md-4 col-sm-6 col-xs-12 form-box">
+          <div class="form-top">
+            <div class="form-top-left">
+              <h3>Password Recovery</h3>
+            </div>
+          </div>
+        <div class="form-bottom">
+            <form role="form" class="form-horizontal" id="loginform" (submit)="resetPassword()">
+              <p>To reset your password, enter your username below.</p>
+              <div class="input-group login-m-b" >
+                <input type="text" placeholder="UserName" name="Username" class="form-control" [(ngModel)]='userdata.Username' required>
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> </div>
+  
+ 
+              <div class="form-group" > 
+               
+                
+                <div class="col-sm-12 controls"> 
+                  <button type="submit" class="btn-login btn-success login-btn" id="btn-login" >Submit </button>
+                  <a routerLink="/login/usernameRecovery" class="btn-login plp-white btn-red-plp login-btn" id="btn-login" >Forgot Username </a>
+                   </div>
+              </div>
+             
+              <p>If you need help or have questions, please see your teacher, counselor or advisor to get a temporary password. The temporary passwords are set in your school's MCIS site administration database.  </p>
+            </form>
+          </div>
+        </div>
+    

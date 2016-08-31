@@ -1,0 +1,53 @@
+<PLP-nav-header [header]="sectionObject" [report-status]="report"></PLP-nav-header>
+<form>
+<div class="row">
+ 
+  <div class="col-md-10 form-group">
+    <p class="question-head">{{ questionObject.questions[0] }}</p>
+    <div class="table-responsive">
+      <table class="plp-table table table-bordered table-striped table-hover">
+        <thead class="thead-inverse">
+          <tr>
+             <th rowspan="2" class="vert-align-m" style="vertical-align: middle!important;">Subject</th>
+            <th >Credit<br>
+Requirements</th>
+            <th colspan="2">Credits</th>
+          </tr>
+          <tr>
+            <th>{{ graduationRequirementsData.Titles.ReqColTitle1  }}</th>
+            <th>{{ graduationRequirementsData.Titles.ReqColTitle2  }}</th>
+            <th>{{ graduationRequirementsData.Titles.ReqColTitle3  }}</th>
+          </tr>
+        </thead>
+        <tbody>
+         <tr *ngFor="let item of graduationRequirementsData.ReqItems">
+            <td>{{ item.Subject }} </td>
+            <td>{{ item.Credit1 }}</td>
+            <td><input type="text" class="form-control" [(ngModel)]="item.Credit2" [ngModelOptions]="{standalone: true}"></td>
+            <td><input type="text" class="form-control" [(ngModel)]="item.Credit3" [ngModelOptions]="{standalone: true}"></td>
+          </tr>
+          
+       
+         
+        </tbody>
+        <thead class="thead-inverse">
+          <tr>
+            <th>Total</th>
+            <th>{{ graduationRequirementsData.Totals.Credit1 }}</th>
+            <th>{{ graduationRequirementsData.Totals.Credit2 }}</th>
+            <th>{{ graduationRequirementsData.Totals.Credit3 }}</th>
+          </tr>
+        </thead>
+      </table>
+        </div>
+      <p><em>Students must complete algebra I by 8th grade and algebra II or its equivalent before graduation. Science requirement must include one credit in biology, chemistry and physics or an approved course credit in CTE.</em> </p>
+      
+  </div>
+  <div class="clearfix"> </div>
+      <div *ngIf='(report=="")' class="col-md-5 form-group">
+          <button class="btn btn-red-plp plf-dots3" (click)="postGraduationRequirementsData()" type="button"><i class="fa fa-save white-color"> </i> Update Planned & Compleated Cre3dits</button>
+ 
+      
+    </div>
+</div>
+</form>

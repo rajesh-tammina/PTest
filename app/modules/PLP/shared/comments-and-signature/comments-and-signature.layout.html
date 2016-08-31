@@ -1,0 +1,18 @@
+<PLP-nav-header [header]="sectionObject" [report-status]="report"></PLP-nav-header>
+<form>
+
+
+  <div class="row">
+    <div class="col-md-10 form-group">
+      <label class="question-head"><b>Comments</b> <br> </label>
+      <textarea rows="3" name="commentsAndSignature" class="form-control" placeholder="Enter your comments" [(ngModel)]="commentsAndSignatureData.Comment"></textarea>
+    </div>
+  </div>
+
+  <div *ngIf="(report=='')" class="col-md-3 form-group">
+    <button type="button" class="btn btn-red-plp"><i class="fa fa-save white-color"> </i> Update Comments</button>
+
+  </div>
+  
+
+</form>

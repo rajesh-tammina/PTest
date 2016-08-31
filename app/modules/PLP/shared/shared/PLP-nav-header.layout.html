@@ -1,0 +1,15 @@
+ 
+
+<legend class="text-center">{{ header.title }}<i class="fa fa-graduation-cap" aria-hidden="true"></i></legend>
+<div align="center"  class="plp-red text-center">{{ header.currentCount }}/{{ header.totalCount }}</div>
+ <ul class="pager">
+
+    <li *ngIf="header.previousSec && (report=='')" class="previous" ><a routerLink="/plpcontent/{{header.previousSec}}" > <button type="button" class="btn-small" >
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </button>    Previous</a></li>
+
+    <li *ngIf="header.nextSec && (report=='')" class="next"><a routerLink="/plpcontent/{{header.nextSec}}">Next <button type="button" class="btn-small">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+    </button>  </a></li>
+  </ul>
+

@@ -1,0 +1,29 @@
+<PLP-nav-header [header]="sectionObject" [report-status]="report"></PLP-nav-header>
+<div class="row">
+  <div class="col-md-10 form-group">
+    <div class="table-responsive">
+      <table class="plp-table table table-bordered table-striped table-hover">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Employer</th>
+            <th>Title</th>
+            <th>Dates</th>
+             <th>Duties</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of employmentHistoryData">
+          <td>{{item.Employment}}</td>
+            <td>{{item.Title}}</td>
+            <td>{{item.Dates}}</td>
+            <td>{{item.Duties}}</td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="(report=='')" class="col-md-5 form-group">
+      <button class="btn btn-red-plp" type="button"><i class="fa fa-save white-color"> </i> Extracurricular Activities</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<form [ngFormModel]="reflectionForm" >
+  <div class="row">
+    <div class="col-md-10 form-group">
+      <label for="ReflectionText" class="question-head"><i class="fa fa-user"></i>
+<b>{{ question }}</b> <br>Last Saved On {{reflectionInfo.UpdatedTimeStamp | date:"dd/MM/yyyy"}} 
+
+<span *ngIf="ReflectionText.touched && ReflectionText.errors">
+           <span *ngIf="ReflectionText.errors.invalidText" 
+            style="padding-left:10px;text-align:right;color:red;">
+            Enter valid text</span> 
+            </span>
+<br>
+</label>
+ <!--{{todayDate.todayDate | date:"dd/MM/yyyy" }}-->
+      <textarea id="ReflectionText" rows="3" class="form-control" 
+      ngControl="ReflectionText" #ReflectionText="ngForm"
+       [(ngModel)]="reflectionInfo.UserNotes" 
+       [ngModelOptions]="{standalone: true}" maxlength="3000"></textarea>
+    </div>
+<div class="clearfix"> </div>
+     <div *ngIf="(report=='')" class="col-md-2 form-group">
+    <button type="Submit" class="btn btn-red-plp"  (click)="saveReflectionInfo()">
+      <i class="fa fa-save white-color"  > </i>
+       Save Information</button>
+
+  </div>
+  
+  <div *ngIf="(report=='')" class="col-md-2 form-group">
+    <button type="Submit" class="btn btn-red-plp" (click)="InsertReflectionInfo()">
+      <i class="fa fa-calendar white-color"> 
+        </i> Insert Todays Date</button>
+  </div>
+ 
+  </div>
+
+ 
+</form>

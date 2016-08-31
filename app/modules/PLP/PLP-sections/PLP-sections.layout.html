@@ -1,0 +1,89 @@
+
+<div class="content-container">
+  <div class="top-nav-plp">
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="z-index: 3;">
+    <div class="head-p"> 
+      <!-- Brand and toggle get grouped for better mobile display -->
+       <a  class="navbar-brand">Personal Learning Plan </a>
+      <div id="navbar-collapse">
+
+        <ul class="nav nav-plp navbar-right pull-right">
+          <!-- Align to the right nav links, forms and other content -->
+          
+          <li class="dropdown active"><!-- Dropdown --> 
+            <a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">
+            <i class="fa fa-user"></i> <span class="profiel-name">John Roy</span><span class="caret"></span></a>
+            <ul role="menu" class="dropdown-menu">
+              <li><a routeLink="./ChangePassword">Change Password</a></li>
+              <li><a (click)="logOut()"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <a routerLink="./report" class="btn btn-red-plp1 pull-right">
+          <i class="fa fa-file-text-o" ></i> Report</a>
+      
+      </div>
+      
+      <!-- Collect the nav links, forms, and other content for toggling --> 
+      
+      <!-- /.navbar-collapse --> 
+    </div>
+    <!-- /.container-fluid --> 
+  </nav>
+      </div>
+  <div class="side-menu">
+
+    <nav class="main-menu sidemenu-t" [class.expanded]="menuState"  >
+      <ul>
+        <li class="main-menu2" (click)="menuToggle()" > <a data-toggle="collapse" data-target=".nav-collapse.in"> 
+          <i  class="fa-micon-menu fa fa-bars icon"></i> <span class="nav-text">Personal Learning Plan</span> </a> </li>
+      </ul>
+      <div class="scrollbar" id="style-1"  (click)="menuClose()">
+        <ul>
+           <li *ngFor="let section of sectionsList" routerLinkActive="menu-active"> 
+                <a routerLink="./{{section.routerLink}}"> 
+                    <i class="fa-micon fa {{section.icon}} fa-lg"></i> 
+                    <span class="nav-text"> {{section.title}} </span> 
+                    <i class="fa-micon fa fa-check fa-lg"></i> 
+                </a> 
+           </li>
+          
+          <!--
+          <li> <a routerLink="./personalInfo" > <i class="fa-micon fa fa-user fa-lg"></i> <span class="nav-text">My Personal  Information </span> <i class="fa-micon fa fa-check fa-lg"></i> </a> </li>
+          <li> <a routerLink="./careerGoals" > <i class="fa-micon fa fa fa-table fa-lg"></i> <span class="nav-text">My Career Goals</span><i class="fa-micon fa fa-check fa-lg"></i> </a> </li>
+          <li> <a routerLink="./educationPlans" > <i class="fa-micon fa fa-file-text-o fa-lg"></i> <span class="nav-text">My Education Plans</span> </a> </li>
+          <li> <a routerLink="./careerAssessments"> <i class="fa-micon fa fa-cubes fa-lg"></i> <span class="nav-text">Self Knowledge and Career Assessments</span> </a> </li>
+          <li> <a routerLink="./careerCluster"> <i class="fa-micon fa fa-user fa-lg"></i> <span class="nav-text">Career Clusters of Interest</span> </a> </li>
+          <li> <a routerLink="./occAndCluster"> <i class="fa-micon fa fa fa-table fa-lg"></i> <span class="nav-text">Occupations and Clusters of Interest</span> </a> </li>
+          <li> <a routerLink="./coursePlan"> <i class="fa-micon fa fa-file-text-o fa-lg"></i> <span class="nav-text">Course Plan</span> </a> </li>
+          <li> <a routerLink="./graduationRequirements"> <i class="fa-micon fa fa-cubes fa-lg"></i> <span class="nav-text">Graduation Requirements</span> </a> </li>
+          <li> <a routerLink="./testScores"> <i class="fa-micon fa fa-user fa-lg"></i> <span class="nav-text">Test Scores</span> </a> </li>
+          <li> <a routerLink="./studyOfInterest"> <i class="fa-micon fa fa fa-table fa-lg"></i> <span class="nav-text">Programs of  Study of Interest</span> </a> </li>
+          <li> <a routerLink="./schoolsOfInterest"> <i class="fa-micon fa fa-file-text-o fa-lg"></i> <span class="nav-text">Postsecondary Schools of Interest</span> </a> </li>
+          <li> <a routerLink="./volunteerCommunityService"> <i class="fa-micon fa fa-cubes fa-lg"></i> <span class="nav-text">Volunteer and Community Service</span> </a> </li>
+          <li> <a routerLink="./extraActivities"> <i class="fa-micon fa fa-user fa-lg"></i> <span class="nav-text">Extracurricular Activities</span> </a> </li>
+          <li> <a routerLink="./employmentHistory"> <i class="fa-micon fa fa fa-table fa-lg"></i> <span class="nav-text">Employment History and Work-based Learning Experience</span> </a> </li>
+          <li> <a routerLink="./actionPlan"> <i class="fa-micon fa fa-file-text-o fa-lg"></i> <span class="nav-text">My Action Plan for this Year</span> </a> </li>
+          <li> <a routerLink="./supportNetwork"> <i class="fa-micon fa fa-cubes fa-lg"></i> <span class="nav-text">My Support Network</span> </a> </li>
+          <li> <a routerLink="./experientialLearning"> <i class="fa-micon fa fa-file-text-o fa-lg"></i> <span class="nav-text">Experiential Learning</span> </a> </li>
+          <li> <a routerLink="./experLearningTypes">  <i class="fa-micon fa fa-cubes fa-lg"></i> <span class="nav-text">Type of Experiential Learning Activity</span> </a> </li>
+          <li> <a routerLink="./commentsAndSignature"> <i class="fa-micon fa fa-cubes fa-lg"></i> <span class="nav-text">Comments  and Signatures</span> </a> </li>
+          -->
+        </ul>
+      </div>
+    </nav>
+    <!--<div class="main-menu-layer" (click)="menuToggle()" *ngIf="!menuClassBool" ></div> -->
+  </div>
+  <div class="row side-body" (click)="menuClose()">
+   
+    <br>
+    <!-- Routed views go here -->
+  
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<button  class="btn btn-red-plp gen-pdf-btn" type="button" >
+<i _ngcontent-ynw-1="" class="fa fa-file-pdf-o white-color"> </i>
+
+ </button>

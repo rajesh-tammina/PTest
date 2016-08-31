@@ -1,0 +1,44 @@
+<PLP-nav-header [header]="sectionObject" [report-status]="report"></PLP-nav-header>
+<div class="row">
+  <div class="col-md-10 form-group">
+    <div class="table-responsive">
+      <table class="plp-table table table-bordered table-striped table-hover">
+        <thead class="thead-inverse">
+          <tr>
+            <th colspan="6">Course Plan</th>
+          </tr>
+          <tr>
+            <th>Subject</th>
+            <th>9th Grade</th>
+            <th>10th Grade</th>
+            <th>11th Grade</th>
+            <th>12th Grade</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+         
+           <tr *ngFor='let item of testModel'>
+              <td>{{item.Subject}}</td>
+              <td>{{item.NinethGradeText}}</td>
+              <td>{{item.TenthGradeText}}</td>    
+              <td>{{item.EleventhGradeText}}</td>
+              <td>{{item.TwelfthGradeText}}</td>
+              <td>{{item.Total}}</td>     
+            </tr>
+        </tbody>
+        <thead class="thead-inverse">
+          <tr>
+            <th>Total Credits</th>
+            <th>0</th>
+            <th>0</th>
+            <th>0</th>
+            <th>0</th>
+            <th>0</th>
+          </tr>
+        </thead>
+      </table>
+      <div class="clearfix"> </div>
+    </div>
+  </div>
+</div>

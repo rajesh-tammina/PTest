@@ -1,0 +1,64 @@
+
+<PLP-nav-header [header]="sectionObject" [report-status]="report"></PLP-nav-header>
+  
+<form [ngFormModel]="testScoresForm">
+        <div class="row">
+
+          <div class="col-md-10 form-group">
+            <p class="question-head">{{ questionObject.questions[0] }}</p>
+            <div class="table-responsive">
+              <table class="plp-table table table-bordered table-striped table-hover">
+                <thead class="thead-inverse">
+                  <tr>
+                    <th>Test</th>
+                    <th>Score</th>
+                    <th>Test</th>
+                    <th>Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of testScoresData; let inx=index">
+                    <td><div class="form-group">
+                        <label for="filter">Test Name #{{inx+1}}:</label>
+                        <input id="Test" type="text" class="form-control" value="{{item.TestName}}" 
+                        max-length="100" ngControl="Test" #Test="ngForm" >
+                        <span *ngIf="Test.touched && Test.errors">
+                  <span *ngIf="Test.errors.invalidText" 
+                    style="padding-left:10px;text-align:right;color:red;">
+                    Enter valid text</span> 
+                    </span>
+                      </div></td>
+                    <td><div class="form-group">
+                        <label for="filter">Score #{{inx+1}}:</label>
+                        <input id="score" type="text" class="form-control" 
+                        value="{{item.Score}}" max-length="50" 
+                        ngControl="score" #score="ngForm">
+                          <span *ngIf="score.touched && score.errors">
+                  <span *ngIf="score.errors.invalidText" 
+                    style="padding-left:10px;text-align:right;color:red;">
+                    Enter valid text</span> 
+                    </span>
+                      </div></td>
+                    <!--<td><div class="form-group">
+                        <label for="filter">Test Name #2:</label>
+                        <input type="text" class="form-control">
+                      </div></td>
+                    <td><div class="form-group">
+                        <label for="filter">Score #2</label>
+                        <input type="text" class="form-control">
+                      </div></td>-->
+                  </tr>
+                  
+                
+                  
+                </tbody>
+              </table>
+              <div class="clearfix"> </div>
+            </div>
+            <div *ngIf="(report=='')" class="col-md-5 form-group">
+                  <button class="btn btn-red-plp" type="button"><i class="fa fa-save white-color"> </i> Update Test Score</button>
+        
+                </div>
+          </div>
+        </div>
+  </form>
