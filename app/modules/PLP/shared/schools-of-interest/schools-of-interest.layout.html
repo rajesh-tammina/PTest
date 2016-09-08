@@ -1,29 +1,65 @@
-<PLP-nav-header [header]="sectionObject" [report-status]="report"></PLP-nav-header>
+<PLP-nav-header [header]="sectionObject" (changeView)="changeView($event)" [report-status]="report"></PLP-nav-header>
 <div class="row">
 
-  <div class="col-md-10 form-group">
-<div class="table-responsive">
-<table class="plp-table table table-bordered table-striped table-hover">
-      <thead class="thead-inverse">
-    <tr>
-      <th>Program of Study</th>
-      <th>Date Saved</th>
-      <th>What&nbsp;I&nbsp;Learned</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of schoolsOfInterestData">
-          <td>{{item.Title}}</td>
-          <td>{{item.UpdatedTimeStamp}}</td>
-          <td>{{item.UserNotes}}</td>
-            
-   </tr>
-  </tbody>
-</table>
+  <div class="col-md-10 col-md-offset-1 form-group">
+    <div class="desktop-table">
+
+
+      <table class="plp-table table table-bordered table-striped table-hover">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Schools of Interest</th>
+            <th>Date Saved</th>
+            <th>What&nbsp;I&nbsp;Learned</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="schoolsOfInterestData && schoolsOfInterestData.length == 0" align="center">
+            <td colspan="3" style="font-size:18px;">{{tableNoData}}</td>
+          </tr>
+          <tr *ngFor="let item of schoolsOfInterestData">
+            <td>{{item.Title}}</td>
+            <td>{{item.UpdatedTimeStamp | customDate}}</td>
+            <!-- | date:"MM/dd/yyyy"-->
+            <td>{{item.UserNotes}}</td>
+
+          </tr>
+        </tbody>
+      </table>
+      <div class="clearfix"> </div>
+    </div>
+    <div class="mobile-table" style="width: 100%;">
+      <table class="plp-table table table-bordered table-striped table-hover">
+
+        <tbody>
+
+
+          <tr *ngIf="schoolsOfInterestData && schoolsOfInterestData.length == 0" align="center">
+            <td colspan="3" style="font-size:18px;">{{tableNoData}}</td>
+          </tr>
+          <tr *ngFor='let item of schoolsOfInterestData'>
+            <td>
+              <table>
+                <tr>
+
+                  <td>Program of Study</td>
+                  <td>{{item.Title}}</td>
+                </tr>
+                <tr>
+                  <td>Date Saved</td>
+                  <td>{{item.UpdatedTimeStamp | customDate}}</td>
+                </tr>
+                <!-- | date:"MM/dd/yyyy"-->
+                <tr>
+                  <td>What I Learned</td>
+                  <td>{{item.UserNotes}}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+    <div class="clearfix"> </div>
+  </div>
 </div>
-<div *ngIf="(report=='')" class="col-md-5 form-group">
-          <button class="btn btn-red-plp plf-dots3" type="button"><i class="fa fa-save white-color"> </i> Update Program pf Study Information</button>
- 
-        </div>
-</div>
-</div>  

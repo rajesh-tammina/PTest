@@ -1,64 +1,94 @@
 
-<PLP-nav-header [header]="sectionObject" [report-status]="report"></PLP-nav-header>
+<PLP-nav-header [header]="sectionObject" (changeView)="changeView($event)" [report-status]="report"></PLP-nav-header>
   
-<form [ngFormModel]="testScoresForm">
+<form [ngFormModel]="testScoresForm"  (ngSubmit)="SaveTestScores()">
         <div class="row">
+          <div class="col-md-10 col-md-offset-1 form-group">
+            <div *ngIf="edited" class="alert alert-success">
+            <strong>Success!</strong> {{successLabel}}
+            </div>
 
-          <div class="col-md-10 form-group">
-            <p class="question-head">{{ questionObject.questions[0] }}</p>
-            <div class="table-responsive">
-              <table class="plp-table table table-bordered table-striped table-hover">
+            <div *ngIf="errorVal" class="alert alert-danger">
+            <strong>Oops!</strong> {{successLabel}}
+            </div>
+           
+              <table  class="plp-table table table-bordered table-striped table-hover">
+                 <colgroup>
+                    <col class="col-md-6 col-xs-6">
+                   <col class="col-md-6 col-xs-6">
+                 </colgroup>
                 <thead class="thead-inverse">
                   <tr>
-                    <th>Test</th>
-                    <th>Score</th>
                     <th>Test</th>
                     <th>Score</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of testScoresData; let inx=index">
-                    <td><div class="form-group">
-                        <label for="filter">Test Name #{{inx+1}}:</label>
-                        <input id="Test" type="text" class="form-control" value="{{item.TestName}}" 
-                        max-length="100" ngControl="Test" #Test="ngForm" >
-                        <span *ngIf="Test.touched && Test.errors">
-                  <span *ngIf="Test.errors.invalidText" 
-                    style="padding-left:10px;text-align:right;color:red;">
-                    Enter valid text</span> 
-                    </span>
-                      </div></td>
-                    <td><div class="form-group">
-                        <label for="filter">Score #{{inx+1}}:</label>
-                        <input id="score" type="text" class="form-control" 
-                        value="{{item.Score}}" max-length="50" 
-                        ngControl="score" #score="ngForm">
-                          <span *ngIf="score.touched && score.errors">
-                  <span *ngIf="score.errors.invalidText" 
-                    style="padding-left:10px;text-align:right;color:red;">
-                    Enter valid text</span> 
-                    </span>
-                      </div></td>
-                    <!--<td><div class="form-group">
-                        <label for="filter">Test Name #2:</label>
-                        <input type="text" class="form-control">
-                      </div></td>
-                    <td><div class="form-group">
-                        <label for="filter">Score #2</label>
-                        <input type="text" class="form-control">
-                      </div></td>-->
-                  </tr>
-                  
-                
-                  
+                  <tr *ngFor="let item of testScoresData; let inx=index;let lst=last ">
+                    <td >
+                          <div class="form-group">
+                            <label for="filter">Test Name #{{inx+1}}:</label>
+                            <input id="Test" type="text" class="form-control" value="{{item.TestName}}" 
+                            [(ngModel)]="item.TestName" [ngModelOptions]="{standalone: true}"
+                             ngControl="Test" #Test="ngForm" >
+                           
+                          </div>
+
+                      </td>
+                    <td >
+                            <div class="form-group">
+                               <label for="filter">Score #{{inx+1}}:</label>
+                             <div> </div>
+                              <div class="col-md-10 col-xs-8 col-sm-10">
+                                <div class="row">
+                                   <input id="score" type="text" class="form-control" 
+                              value="{{item.Score}}" 
+                                [(ngModel)]="item.Score" [ngModelOptions]="{standalone: true}"
+                              ngControl="score" #score="ngForm">
+                             
+                               </div>
+                                </div>
+                               <div class="col-md-2 col-xs-3 col-sm-2" *ngIf="lst && (inx+1)!=6">
+                             <i style="margin-top: 0px; padding: 0px; line-height: 12px;left:-15px;" 
+                             class="fa-micon fa  icon-add-circular-button fa-lg"  (click)="add()"></i>
+                            </div>
+                             <div class="col-md-2 col-xs-3 col-sm-2" *ngIf!="lst">
+                             <i style="margin-top: 0px; padding: 0px; line-height: 12px;left:-15px;" 
+                             class="fa-micon fa icon-remove fa-lg"  (click)="remove(inx+1)"></i>
+                            </div>
+                     </div>
+                      </td>
+                      </tr>
                 </tbody>
               </table>
               <div class="clearfix"> </div>
-            </div>
-            <div *ngIf="(report=='')" class="col-md-5 form-group">
-                  <button class="btn btn-red-plp" type="button"><i class="fa fa-save white-color"> </i> Update Test Score</button>
-        
-                </div>
+         
+          <div  *ngIf="Test.touched && Test.errors">
+             <span>
+                              <span *ngIf="Test.errors.invalidText" 
+                                class="error-color">
+                                {{errorMessage.script_tags_error}}</span> 
+                                <span *ngIf="Test.errors.maxlength" 
+                                class="error-color">
+                                {{errorMessage.testname_limit}}</span> 
+                            </span>
           </div>
+          <div *ngIf="score.touched && score.errors">
+          <span >
+                <span *ngIf="score.errors.invalidText" 
+                  class="error-color">
+                  {{errorMessage.script_tags_error}}</span> 
+                  <span *ngIf="score.errors.maxlength" 
+                  class="error-color">
+                  {{errorMessage.score_limit}}</span> 
+            </span>
+          </div><br>
+           <div *ngIf="(report=='')" >
+                  <button class="btn btn-red-plp" type="submit" [disabled]="!testScoresForm.valid"><i class="fa fa-save white-color"> </i> Update Test Score</button>
+                
+                 
+ 
+                </div>
+                 </div>
         </div>
   </form>

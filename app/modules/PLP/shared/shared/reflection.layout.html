@@ -1,37 +1,49 @@
-<form [ngFormModel]="reflectionForm" >
+<form [ngFormModel]="reflectionForm" (ngSubmit)="saveReflectionInfo()">
+ 
   <div class="row">
-    <div class="col-md-10 form-group">
-      <label for="ReflectionText" class="question-head"><i class="fa fa-user"></i>
-<b>{{ question }}</b> <br>Last Saved On {{reflectionInfo.UpdatedTimeStamp | date:"dd/MM/yyyy"}} 
+    <div class="col-md-10 col-md-offset-1 form-group">
+       <div *ngIf="edited" class="alert alert-success">
+     <strong>Success!</strong> {{successLabel}}
+ </div>
+        
+ <div *ngIf="errorVal" class="alert alert-danger">
+       <strong>Oops!</strong> {{successLabel}}
+     </div>
+      <label for="ReflectionText" class="question-head">
+ <p class="ptitle">{{ question }}</p> Last Saved On {{reflectionInfo.UpdatedTimeStamp | customDate}}
 
 <span *ngIf="ReflectionText.touched && ReflectionText.errors">
            <span *ngIf="ReflectionText.errors.invalidText" 
-            style="padding-left:10px;text-align:right;color:red;">
-            Enter valid text</span> 
+            style="padding-left:10px;text-align:right;" class="error-color">
+            {{errorMessage.script_tags_error}}</span> 
+            <span *ngIf="ReflectionText.errors.maxlength" 
+              style="padding-left:10px;text-align:right;" class="error-color">
+             {{errorMessage.usernotes_limit}}</span> 
             </span>
 <br>
 </label>
- <!--{{todayDate.todayDate | date:"dd/MM/yyyy" }}-->
+ <!--{{todayDate.todayDate | date:"MM/dd/yyyy" }}-->
       <textarea id="ReflectionText" rows="3" class="form-control" 
       ngControl="ReflectionText" #ReflectionText="ngForm"
        [(ngModel)]="reflectionInfo.UserNotes" 
-       [ngModelOptions]="{standalone: true}" maxlength="3000"></textarea>
+       [ngModelOptions]="{standalone: true}"></textarea>
     </div>
 <div class="clearfix"> </div>
-     <div *ngIf="(report=='')" class="col-md-2 form-group">
-    <button type="Submit" class="btn btn-red-plp"  (click)="saveReflectionInfo()">
-      <i class="fa fa-save white-color"  > </i>
+   <div class="col-md-10 col-md-offset-1 form-group">
+     <div *ngIf="(report=='')" > 
+    <button type="Submit" class="btn btn-red-plp"  (click)="saveReflectionInfo()" [disabled]="!reflectionForm.valid">
+       <i class="fa fa-save white-color"  > </i>
        Save Information</button>
-
+ <button type="button" class="btn btn-red-plp" (click)="InsertReflectionInfo()" >
+      <i class="fa fa-calendar white-color"> 
+        </i> Insert Today's Date</button>
   </div>
   
-  <div *ngIf="(report=='')" class="col-md-2 form-group">
-    <button type="Submit" class="btn btn-red-plp" (click)="InsertReflectionInfo()">
+  <!--<div *ngIf="(report=='')" class="col-md-2 col-sm-3 col-xs-12 form-group">
+    <button type="button" class="btn btn-red-plp" (click)="InsertReflectionInfo()" >
       <i class="fa fa-calendar white-color"> 
-        </i> Insert Todays Date</button>
+        </i> Insert Today's Date</button>
+  </div>-->
   </div>
- 
   </div>
-
- 
 </form>

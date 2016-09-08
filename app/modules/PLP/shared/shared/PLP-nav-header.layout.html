@@ -1,14 +1,18 @@
  
+<div class="title-head">
+  <span >{{ header.title }}&nbsp;&nbsp;</span>
+  <i class="fa {{ header.icon }}" aria-hidden="true"></i>
+  </div>
 
-<legend class="text-center">{{ header.title }}<i class="fa fa-graduation-cap" aria-hidden="true"></i></legend>
-<div align="center"  class="plp-red text-center">{{ header.currentCount }}/{{ header.totalCount }}</div>
  <ul class="pager">
 
-    <li *ngIf="header.previousSec && (report=='')" class="previous" ><a routerLink="/plpcontent/{{header.previousSec}}" > <button type="button" class="btn-small" >
+    <li *ngIf="(report=='')" [class.disabled-btn]="(header.previousSec==undefined)"  class="previous" ><a > <button type="button" class="btn btn-small" (click)="loadPrevious()" [disabled]="(header.previousSec==undefined)" >
       <span class="glyphicon glyphicon-chevron-left"></span>
+    
     </button>    Previous</a></li>
+    <li><span  class="plp-red text-center prenext-center-text">{{ header.currentCount }}/{{ header.totalCount }}</span> </li>
 
-    <li *ngIf="header.nextSec && (report=='')" class="next"><a routerLink="/plpcontent/{{header.nextSec}}">Next <button type="button" class="btn-small">
+    <li *ngIf="(report=='')" [class.disabled-btn]="(header.nextSec==undefined)" class="next"><a >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Next <button type="button" class="btn btn-small"  (click)="loadNext()" [disabled]="(header.nextSec==undefined)" >
       <span class="glyphicon glyphicon-chevron-right"></span>
     </button>  </a></li>
   </ul>

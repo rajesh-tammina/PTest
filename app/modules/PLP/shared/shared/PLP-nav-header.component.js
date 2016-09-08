@@ -25,8 +25,15 @@ System.register(['@angular/core', "@angular/router"], function(exports_1, contex
                 function PLPNavHeaderComponent() {
                     this.header = "";
                     this.report = "";
+                    this.changeView = new core_1.EventEmitter();
                     //alert("PLP nav header is:"+JSON.stringify(this.header));
                 }
+                PLPNavHeaderComponent.prototype.loadPrevious = function () {
+                    this.changeView.emit(this.header.previousSec);
+                };
+                PLPNavHeaderComponent.prototype.loadNext = function () {
+                    this.changeView.emit(this.header.nextSec);
+                };
                 __decorate([
                     core_1.Input('header'), 
                     __metadata('design:type', Object)
@@ -35,6 +42,10 @@ System.register(['@angular/core', "@angular/router"], function(exports_1, contex
                     core_1.Input('report-status'), 
                     __metadata('design:type', Object)
                 ], PLPNavHeaderComponent.prototype, "report", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', Object)
+                ], PLPNavHeaderComponent.prototype, "changeView", void 0);
                 PLPNavHeaderComponent = __decorate([
                     core_1.Component({
                         selector: 'PLP-nav-header',

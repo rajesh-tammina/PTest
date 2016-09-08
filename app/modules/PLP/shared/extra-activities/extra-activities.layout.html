@@ -1,7 +1,7 @@
-<PLP-nav-header [header]="sectionObject" [report-status]="report"></PLP-nav-header>
+<PLP-nav-header [header]="sectionObject" (changeView)="changeView($event)" [report-status]="report"></PLP-nav-header>
 <div class="row">
-  <div class="col-md-10 form-group">
-    <div class="table-responsive">
+  <div class="col-md-10 col-md-offset-1 form-group">
+     <div class="desktop-table">
       <table class="plp-table table table-bordered table-striped table-hover">
         <thead class="thead-inverse">
           <tr>
@@ -11,16 +11,53 @@
           </tr>
         </thead>
         <tbody>
+           <tr *ngIf="extraActivitiesData && extraActivitiesData.length == 0" align="center">
+                         <td colspan="3"  style="font-size:18px;" >{{tableNoData}}</td>
+                       </tr>
           <tr *ngFor="let item of extraActivitiesData">
           <td>{{item.Organization}}</td>
-            <td>{{item.Dates}}</td>
+            <td>{{item.Dates }}</td>
             <td>{{item.Description}}</td>
            </tr>
         </tbody>
       </table>
     </div>
-    <div *ngIf="(report=='')" class="col-md-5 form-group">
-      <button class="btn btn-red-plp" type="button"><i class="fa fa-save white-color"> </i> Extracurricular Activities</button>
+   <div class="mobile-table" style="width: 100%;">
+      <table class="plp-table table table-bordered table-striped table-hover">
+
+        <tbody>
+
+
+          <tr *ngIf="extraActivitiesData && extraActivitiesData.length == 0" align="center">
+            <td colspan="3" style="font-size:18px;">{{tableNoData}}</td>
+          </tr>
+          <tr *ngFor='let item of extraActivitiesData'>
+            <td>
+              <table>
+                <tr>
+
+                  <td>Organization</td>
+                  <td>{{item.Organization}}</td>
+                </tr>
+                <tr>
+                  <td>Date</td>
+                  <td>{{item.Dates}}</td>
+                </tr>
+                <!-- | date:"MM/dd/yyyy"-->
+                <tr>
+                  <td>Description</td>
+                  <td>{{item.Description}}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
+      <div class="clearfix"> </div>
+
+
     </div>
   </div>
 </div>

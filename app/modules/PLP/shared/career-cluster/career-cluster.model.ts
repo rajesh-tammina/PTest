@@ -1,7 +1,6 @@
 export class CareerClusterModel{
       ClusterID:Number;
-    ClusterName:String;
-    UserNotes:String;
-    UpdatedTimeStamp:Date;
-    selected:boolean;
+      ClusterName:String;
+      selected:boolean;
+      UpdatedTimeStamp : String;
 }

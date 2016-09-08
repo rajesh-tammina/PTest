@@ -1,4 +1,4 @@
-import { Component,Input } from '@angular/core';
+import { Component,Input, Output, EventEmitter } from '@angular/core';
 
 import { PLPNavHeaderComponent } from '../shared/PLP-nav-header.component';
 import { ReflectionComponent } from '../shared/reflection.component';
@@ -17,6 +17,9 @@ import {ControlGroup,Control,Validators,FormBuilder,CORE_DIRECTIVES,FORM_DIRECTI
 })
 export class SupportNetworkComponent {
     @Input('report-status') report="";
+    @Output('changeView') changeInrView= new EventEmitter();
+    @Output() containResult= new EventEmitter();
+    
     supportNetworkData:SupportNetworkModel[];
 
     sectionObject;
@@ -33,5 +36,13 @@ export class SupportNetworkComponent {
     ngOnInit(){
         this.sectionObject = this.shared.getSectionObject(this.section);
         this.questionObject = this.shared.getQuestion(this.section);
+    }
+
+    changeView(evnt){
+      this.changeInrView.emit(evnt);
+    }
+
+    changeFilledStatus(evnt){
+      this.containResult.emit(evnt);
     }
 }

@@ -1,4 +1,4 @@
-System.register(['@angular/core', "../shared/personal-info/personal-info.component", "../shared/education-plans/education-plans.component", "../shared/career-goals/career-goals.component", "../shared/action-plan-for-year/action-plan.component", "../shared/career-assessments/career-assessments.component", "../shared/career-cluster/career-cluster.component", "../shared/comments-and-signature/comments-and-signature.component", "../shared/course-plan/course-plan.component", "../shared/employment-history/employment-history.component", "../shared/experiential-learning/experiential-learning.component", "../shared/experiential-learning-types/experiential-learning-types.component", "../shared/extra-activities/extra-activities.component", "../shared/graduation-requirements/graduation-requirements.component", "../shared/occ-and-cluster/occ-and-cluster.component", "../shared/schools-of-interest/schools-of-interest.component", "../shared/study-of-interest/study-of-interest.component", "../shared/support-network/support-network.component", "../shared/test-scores/test-scores.component", "../shared/volunteer-community-service/volunteer-community-service.component"], function(exports_1, context_1) {
+System.register(['@angular/core', "../shared/personal-info/personal-info.component", "../shared/education-plans/education-plans.component", "../shared/career-goals/career-goals.component", "../shared/action-plan-for-year/action-plan.component", "../shared/career-assessments/career-assessments.component", "../shared/career-cluster/career-cluster.component", "../shared/comments-and-signature/comments-and-signature.component", "../shared/course-plan/course-plan.component", "../shared/employment-history/employment-history.component", "../shared/experiential-learning/experiential-learning.component", "../shared/extra-activities/extra-activities.component", "../shared/graduation-requirements/graduation-requirements.component", "../shared/occ-and-cluster/occ-and-cluster.component", "../shared/schools-of-interest/schools-of-interest.component", "../shared/study-of-interest/study-of-interest.component", "../shared/support-network/support-network.component", "../shared/test-scores/test-scores.component", "../shared/volunteer-community-service/volunteer-community-service.component"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', "../shared/personal-info/personal-info.compone
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, personal_info_component_1, education_plans_component_1, career_goals_component_1, action_plan_component_1, career_assessments_component_1, career_cluster_component_1, comments_and_signature_component_1, course_plan_component_1, employment_history_component_1, experiential_learning_component_1, experiential_learning_types_component_1, extra_activities_component_1, graduation_requirements_component_1, occ_and_cluster_component_1, schools_of_interest_component_1, study_of_interest_component_1, support_network_component_1, test_scores_component_1, volunteer_community_service_component_1;
+    var core_1, personal_info_component_1, education_plans_component_1, career_goals_component_1, action_plan_component_1, career_assessments_component_1, career_cluster_component_1, comments_and_signature_component_1, course_plan_component_1, employment_history_component_1, experiential_learning_component_1, extra_activities_component_1, graduation_requirements_component_1, occ_and_cluster_component_1, schools_of_interest_component_1, study_of_interest_component_1, support_network_component_1, test_scores_component_1, volunteer_community_service_component_1;
     var ReportComponent;
     return {
         setters:[
@@ -47,9 +47,6 @@ System.register(['@angular/core', "../shared/personal-info/personal-info.compone
             function (experiential_learning_component_1_1) {
                 experiential_learning_component_1 = experiential_learning_component_1_1;
             },
-            function (experiential_learning_types_component_1_1) {
-                experiential_learning_types_component_1 = experiential_learning_types_component_1_1;
-            },
             function (extra_activities_component_1_1) {
                 extra_activities_component_1 = extra_activities_component_1_1;
             },
@@ -79,7 +76,6 @@ System.register(['@angular/core', "../shared/personal-info/personal-info.compone
                 function ReportComponent() {
                 }
                 ReportComponent.prototype.ngOnInit = function () {
-                    $(".bs-example input").attr('disabled', 'disabled');
                 };
                 ReportComponent.prototype.getReportData = function () {
                 };
@@ -97,7 +93,6 @@ System.register(['@angular/core', "../shared/personal-info/personal-info.compone
                             course_plan_component_1.CoursePlanComponent,
                             employment_history_component_1.EmploymentHistoryComponent,
                             experiential_learning_component_1.ExperientialLearningComponent,
-                            experiential_learning_types_component_1.ExperLearningTypesComponent,
                             extra_activities_component_1.ExtraActivitiesComponent,
                             graduation_requirements_component_1.GraduationRequirementsComponent,
                             occ_and_cluster_component_1.OccAndClusterComponent,

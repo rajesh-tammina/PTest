@@ -1,4 +1,4 @@
-export class CoursePlanModel{
+export class CoursePlanModel {
       "Subject": String;
       "NinethGradeText": String;
       "TenthGradeText": String;

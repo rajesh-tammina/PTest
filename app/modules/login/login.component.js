@@ -32,33 +32,8 @@ System.register(['@angular/core', '@angular/router', '../../shared/app.apicall.s
                     this.router = router;
                     this.loginauth = loginauth;
                     this.apiJson = apiJson;
-                    this.userdata = {
-                        username: "",
-                        password: "",
-                        stateAbbr: "IC"
-                    };
                 }
                 LoginComponent.prototype.ngOnInit = function () {
-                };
-                LoginComponent.prototype.login = function () {
-                    var _this = this;
-                    try {
-                        this.apiJson.method = "GET";
-                        this.apiJson.endUrl = "login";
-                        var user = JSON.stringify(this.userdata);
-                        this.apiJson.data = user;
-                        this.loginauth.callApi([this.apiJson]).subscribe(function (resp) {
-                            if (resp[0].Success + "" == "true") {
-                                _this.router.navigate(['./plpcontent']);
-                            }
-                            else {
-                                alert("error occured while authenticating");
-                            }
-                        });
-                    }
-                    catch (e) {
-                        alert("login exception:" + e.message);
-                    }
                 };
                 LoginComponent = __decorate([
                     core_1.Component({

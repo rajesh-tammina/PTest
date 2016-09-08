@@ -1,4 +1,4 @@
-System.register(['@angular/core', '../../../../shared/apicall.model', '../shared/PLP-nav-header.component', '../../../../shared/app.apicall.service', '../shared/shared-service.service', "../../../../shared/app.constants"], function(exports_1, context_1) {
+System.register(['@angular/core', '../../../../shared/apicall.model', '../../../../shared/customPipes', '../shared/PLP-nav-header.component', '../../../../shared/app.apicall.service', '../shared/shared-service.service', "../../../../shared/app.constants", '../../../../shared/utilities.class'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '../../../../shared/apicall.model', '../shared
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, apicall_model_1, PLP_nav_header_component_1, app_apicall_service_1, shared_service_service_1, sections;
+    var core_1, apicall_model_1, customPipes_1, PLP_nav_header_component_1, app_apicall_service_1, shared_service_service_1, sections, utilities_class_1;
     var CareerClusterComponent;
     return {
         setters:[
@@ -19,6 +19,9 @@ System.register(['@angular/core', '../../../../shared/apicall.model', '../shared
             },
             function (apicall_model_1_1) {
                 apicall_model_1 = apicall_model_1_1;
+            },
+            function (customPipes_1_1) {
+                customPipes_1 = customPipes_1_1;
             },
             function (PLP_nav_header_component_1_1) {
                 PLP_nav_header_component_1 = PLP_nav_header_component_1_1;
@@ -31,17 +34,26 @@ System.register(['@angular/core', '../../../../shared/apicall.model', '../shared
             },
             function (sections_1) {
                 sections = sections_1;
+            },
+            function (utilities_class_1_1) {
+                utilities_class_1 = utilities_class_1_1;
             }],
         execute: function() {
             CareerClusterComponent = (function () {
-                function CareerClusterComponent(shared, serverApi, apiJson, apiJson1) {
+                function CareerClusterComponent(shared, utils, serverApi, apiJson, apiJson1) {
                     this.shared = shared;
+                    this.utils = utils;
                     this.serverApi = serverApi;
                     this.apiJson = apiJson;
                     this.apiJson1 = apiJson1;
                     this.report = "";
+                    this.changeInrView = new core_1.EventEmitter();
+                    this.containResult = new core_1.EventEmitter();
+                    this.careerClusterCheck = "";
                     this.clusterId = [];
                     this.section = "CareerCluster";
+                    this.edited = false;
+                    this.errorVal = false;
                     this.selectedList = [];
                     this.educationPostReq = {
                         "stateAbbr": "",
@@ -88,10 +100,13 @@ System.register(['@angular/core', '../../../../shared/apicall.model', '../shared
                     education[1] = this.apiJson1;
                     this.serverApi.callApi(education).subscribe(function (response) {
                         _this.careerClusterData = response[0].Result;
-                        _this.careerClusterCheck = response[1].Result;
-                        _this.selectedList = response[1].Result.UserNotes.split(' ');
-                        for (var i = 0; i < _this.selectedList.length; i++) {
-                            _this.clusterId.push({ "ClusterID": _this.selectedList[i] });
+                        //  alert(JSON.stringify(this.careerClusterData));
+                        _this.careerClusterCheck = response[1].Result.UpdatedTimeStamp;
+                        if (response[1].Result.UserNotes != null) {
+                            _this.selectedList = response[1].Result.UserNotes.split(' ');
+                            for (var i = 0; i < _this.selectedList.length; i++) {
+                                _this.clusterId.push({ "ClusterID": _this.selectedList[i] });
+                            }
                         }
                         if (_this.careerClusterData.length > 0) {
                             _this.careerClusterData.forEach(function (obj, key) {
@@ -102,28 +117,37 @@ System.register(['@angular/core', '../../../../shared/apicall.model', '../shared
                                 });
                             });
                         }
-                    });
+                        //alert("response[1].Result.UserNotes--->"+response[1].Result.UserNotes);
+                        if (response[1].Result.UserNotes == "0000000000000000" || response[1].Result.UserNotes == null) {
+                            _this.containResult.emit({ "section": _this.section, result: "empty" });
+                        }
+                        else {
+                            _this.containResult.emit({ "section": _this.section, result: "filled" });
+                        }
+                    }, this.utils.handleError);
                 };
                 CareerClusterComponent.prototype.SaveCareerCluster = function () {
                     var _this = this;
+                    var currentValue = "";
                     var cnt = 0;
+                    this.utils.showLoading();
                     if (this.careerClusterData.length > 0) {
                         this.careerClusterData.forEach(function (obj, key) {
                             if (obj.selected == true) {
-                                // alert(obj.ClusterID);
                                 if (cnt == 0) {
-                                    _this.currentValue = 1 + " " + obj.ClusterID;
+                                    currentValue = 1 + " " + obj.ClusterID;
                                 }
                                 else {
-                                    _this.currentValue = 1 + "" + _this.currentValue + " " + obj.ClusterID;
+                                    currentValue = 1 + "" + currentValue + " " + obj.ClusterID;
                                 }
                             }
                             else {
-                                _this.currentValue = 0 + "" + _this.currentValue;
+                                currentValue = 0 + "" + currentValue;
                             }
                             cnt++;
                         });
                     }
+                    //alert(" this.currentValue---->"+currentValue);
                     this.apiJson.method = "POST";
                     var urlObj = this.shared.getUrlObject(this.section);
                     this.apiJson.endUrl = urlObj.endUrl;
@@ -133,29 +157,75 @@ System.register(['@angular/core', '../../../../shared/apicall.model', '../shared
                         "stateAbbr": this.shared.getStateAbbr(),
                         "accountID": this.shared.getAccountId(),
                         "fieldName": this.careerFieldName,
-                        "userNotes": this.currentValue
+                        "userNotes": currentValue
                     };
-                    //  alert("careerPostReq==>"+JSON.stringify(this.educationPostReq));
                     var user = JSON.stringify(this.educationPostReq);
-                    // alert("user==>"+user)
                     this.apiJson.data = user;
-                    // alert("post data----------"+JSON.stringify(this.apiJson));
                     this.serverApi.callApi([this.apiJson]).subscribe(function (response) {
-                        // alert("response->"+JSON.stringify(response));
-                    });
+                        if (response.Result + "" == "true") {
+                            _this.utils.hideLoading();
+                            if (currentValue == "0000000000000000" || currentValue == null) {
+                                _this.containResult.emit({ "section": _this.section, result: "empty" });
+                            }
+                            else {
+                                _this.containResult.emit({ "section": _this.section, result: "filled" });
+                            }
+                            var dd = new Date();
+                            _this.careerClusterCheck = dd.toDateString();
+                            var successMsg = _this.shared.getSuccessMessage(_this.section);
+                            _this.successLabel = successMsg.update;
+                            _this.edited = true;
+                            setTimeout(function () {
+                                this.edited = false;
+                            }.bind(_this), 5000);
+                        }
+                        else {
+                            _this.utils.hideLoading();
+                            var successMsg = _this.shared.getSuccessMessage(_this.section);
+                            _this.successLabel = successMsg.error;
+                            _this.errorVal = true;
+                            setTimeout(function () {
+                                this.errorVal = false;
+                            }.bind(_this), 5000);
+                        }
+                    }, function (error) { return _this.logError(error); });
+                };
+                CareerClusterComponent.prototype.logError = function (error) {
+                    this.utils.hideLoading();
+                    var successMsg = this.shared.getSuccessMessage(this.section);
+                    this.successLabel = successMsg.error;
+                    this.errorVal = true;
+                    setTimeout(function () {
+                        this.errorVal = false;
+                    }.bind(this), 5000);
+                };
+                CareerClusterComponent.prototype.changeView = function (evnt) {
+                    this.changeInrView.emit(evnt);
+                };
+                CareerClusterComponent.prototype.changeFilledStatus = function (evnt) {
+                    this.containResult.emit(evnt);
                 };
                 __decorate([
                     core_1.Input('report-status'), 
                     __metadata('design:type', Object)
                 ], CareerClusterComponent.prototype, "report", void 0);
+                __decorate([
+                    core_1.Output('changeView'), 
+                    __metadata('design:type', Object)
+                ], CareerClusterComponent.prototype, "changeInrView", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', Object)
+                ], CareerClusterComponent.prototype, "containResult", void 0);
                 CareerClusterComponent = __decorate([
                     core_1.Component({
                         selector: 'career-cluster',
                         templateUrl: './app/modules/PLP/shared/career-cluster/career-cluster.layout.html',
                         directives: [PLP_nav_header_component_1.PLPNavHeaderComponent],
-                        providers: [shared_service_service_1.SharedService, app_apicall_service_1.ServerApi, apicall_model_1.ApiCallClass]
+                        providers: [shared_service_service_1.SharedService, app_apicall_service_1.ServerApi, apicall_model_1.ApiCallClass, utilities_class_1.Utilities],
+                        pipes: [customPipes_1.CustomDate]
                     }), 
-                    __metadata('design:paramtypes', [shared_service_service_1.SharedService, app_apicall_service_1.ServerApi, apicall_model_1.ApiCallClass, apicall_model_1.ApiCallClass])
+                    __metadata('design:paramtypes', [shared_service_service_1.SharedService, utilities_class_1.Utilities, app_apicall_service_1.ServerApi, apicall_model_1.ApiCallClass, apicall_model_1.ApiCallClass])
                 ], CareerClusterComponent);
                 return CareerClusterComponent;
             }());

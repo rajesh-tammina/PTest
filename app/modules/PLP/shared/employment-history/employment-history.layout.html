@@ -1,29 +1,72 @@
-<PLP-nav-header [header]="sectionObject" [report-status]="report"></PLP-nav-header>
+<PLP-nav-header [header]="sectionObject" (changeView)="changeView($event)" [report-status]="report"></PLP-nav-header>
 <div class="row">
-  <div class="col-md-10 form-group">
-    <div class="table-responsive">
+  <div class="col-md-10 col-md-offset-1 form-group">
+    <div class="desktop-table">
       <table class="plp-table table table-bordered table-striped table-hover">
         <thead class="thead-inverse">
           <tr>
             <th>Employer</th>
             <th>Title</th>
             <th>Dates</th>
-             <th>Duties</th>
+            <th>Duties</th>
           </tr>
         </thead>
         <tbody>
+
+          <tr *ngIf="employmentHistoryData && employmentHistoryData.length == 0" align="center">
+            <td colspan="3" style="font-size:18px;">{{tableNoData}}</td>
+          </tr>
           <tr *ngFor="let item of employmentHistoryData">
-          <td>{{item.Employment}}</td>
+            <td>{{item.Employment}}</td>
             <td>{{item.Title}}</td>
             <td>{{item.Dates}}</td>
             <td>{{item.Duties}}</td>
           </tr>
-          
+
         </tbody>
       </table>
     </div>
-    <div *ngIf="(report=='')" class="col-md-5 form-group">
-      <button class="btn btn-red-plp" type="button"><i class="fa fa-save white-color"> </i> Extracurricular Activities</button>
+    <div class="mobile-table" style="width: 100%;">
+      <table class="plp-table table table-bordered table-striped table-hover">
+
+        <tbody>
+
+
+          <tr *ngIf="employmentHistoryData && employmentHistoryData.length == 0" align="center">
+            <td colspan="3" style="font-size:18px;">{{tableNoData}}</td>
+          </tr>
+          <tr *ngFor='let item of employmentHistoryData'>
+            <td>
+              <table>
+                <tr>
+
+                  <td>Employer</td>
+                  <td>{{item.Employment}}</td>
+                </tr>
+                <tr>
+                  <td>Title</td>
+                  <td>{{item.Title}}</td>
+                </tr>
+                <!-- | date:"MM/dd/yyyy"-->
+                <tr>
+                  <td>Dates</td>
+                  <td>{{item.Dates}}</td>
+                </tr>
+                
+                <tr>
+                  <td>Duties</td>
+                  <td>{{item.Duties}}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
+      <div class="clearfix"> </div>
+
+
     </div>
   </div>
 </div>

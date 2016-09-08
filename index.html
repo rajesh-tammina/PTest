@@ -1,33 +1,36 @@
-<html>
 
+<html lang="en" class="no-js">
 <head>
   <base href="/">
   <title>Personal Learning Plan</title>
+  <meta charset="utf-8">
  
 <meta name="viewport" content="width=device-width=1,initial-scale=1,maximum-scale=1">
- <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
- <link rel="stylesheet" href="./app/css/style.css">
- <link rel="stylesheet" href="./app/css/app.fontawesome.css">
+ <link type="text/css" rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+ <link type="text/css" rel="stylesheet" href="./app/css/style.css">
+  <link type="text/css" rel="stylesheet" href="./app/css/icons/plpicons.css">
+ <link type="text/css" rel="stylesheet" href="./app/css/app.fontawesome.css">
+ <link href="./app/images/plp-login-bg.jpg" rel="icon" type="image/x-icon" />
  <script src="node_modules\jquery\dist\jquery.js"></script>
+ <script src="date.js"></script>
   <!-- 1. Load libraries -->
   <!-- Polyfill(s) for older browsers -->
   
-  <script src="node_modules/core-js/client/shim.min.js"></script>
-  <script src="node_modules/zone.js/dist/zone.js"></script>
-  <script src="node_modules/reflect-metadata/Reflect.js"></script>
-  <script src="node_modules/systemjs/dist/system.src.js"></script>
+  <script type="text/javascript" src="node_modules/core-js/client/shim.min.js"></script>
+  <script type="text/javascript" src="node_modules/zone.js/dist/zone.js"></script>
+  <script type="text/javascript" src="node_modules/reflect-metadata/Reflect.js"></script>
+  <script type="text/javascript" src="node_modules/systemjs/dist/system.src.js"></script>
+  <script type="text/javascript" src="node_modules/angular2/bundles/http.dev.js"></script>
  
-  <script src="node_modules\bootstrap\dist\js\bootstrap.js"></script>
+  <script type="text/javascript" src="node_modules\bootstrap\dist\js\bootstrap.js"></script>
   <!-- 2. Configure SystemJS -->
-  <script src="systemjs.config.js"></script>
+  <script type="text/javascript" src="systemjs.config.js"></script>
   <!-- 3. Load ng2-bootstrap -->
-  <script src="node_modules/ng2-bootstrap/bundles/ng2-bootstrap.min.js"></script>
-
-  <script>
+  <script type="text/javascript" src="node_modules/ng2-bootstrap/bundles/ng2-bootstrap.min.js"></script>
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script>
+  <script type="text/javascript">
    
     $(document).ready(function(){
- 
- // $(".bs-example input").attr('disabled','disabled');
      
     System.import('app').catch(function(err){ console.log("Error in index.html");console.error(err); });
 
@@ -39,7 +42,7 @@
 
 <!-- 3. Display the application -->
 <body>
-<my-app>Loading...</my-app>
+<PLP-app>Loading...</PLP-app>
 </body>
 
 </html>

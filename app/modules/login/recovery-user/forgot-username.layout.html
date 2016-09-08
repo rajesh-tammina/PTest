@@ -2,19 +2,35 @@
         <div class="col-md-4 col-sm-6 col-xs-12 form-box">
           <div class="form-top">
             <div class="form-top-left">
-              <h3>Username Recovery</h3>
+              <h3><a  routerLink="/login/passwordRecovery" class="backarrow">
+                <i aria-hidden="true" class="fa icon-back-left-arrow"></i>
+                </a> &nbsp;&nbsp;&nbsp;Username Recovery</h3>
             </div>
           </div>
           <div class="form-bottom">
-            <form role="form" class="form-horizontal" id="loginform" (submit)="resetUsername()">
+            <form [ngFormModel] = "ForgotUserNameForm" role="form" class="form-horizontal" id="loginform" (ngSubmit)="resetUsername()">
+               <span *ngIf ="errorVal" class="error-color">Incorrect email address</span>
+             <span *ngIf="successVal" class="success-color"><b>UserName sent successfully</b></span>
+               <span *ngIf="email.touched && email.errors">
+                  <span *ngIf="email.errors.required" 
+                 class="error-color">
+                 {{errorMessage.email_req}}</span> 
+                 <span *ngIf="email.errors.incorrectMailFormat" 
+               class="error-color">
+                 {{errorMessage.email_invalid}}</span> 
+               </span>
               <p> If you entered your e-mail address when you created your account, you can have your username e-mailed to that address.</p>
               <div class="input-group login-m-b" >
-                <input type="text" placeholder="E-mail Address" name="E-mail Address" class="form-control" [(ngModel)]='userdata.email' required>
+                <input type="text" placeholder="E-mail Address"
+                 name="E-mail Address" class="form-control" [(ngModel)]='userdata.email' ngControl="email" #email="ngForm">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span> </div>
              
                <div class="form-group" > 
-                <!-- Button --><div class="col-sm-12 controls"> 
-                  <button type="submit" class="btn-login btn-success login-btn" id="btn-login" >E-mail Address</button> </div>
+                <!-- Button -->
+                  <div class="col-sm-12 controls"> 
+                      <button type="submit" class="btn btn-login1 btn-success" id="btn-login" [disabled]="!ForgotUserNameForm.valid"
+                       >E-mail Username</button>
+                  </div>
               </div>
             
               <p>If you need help or have questions, please see your teacher, counselor or advisor to get a temporary password. The temporary passwords are set in your school's MCIS site administration database.</p>

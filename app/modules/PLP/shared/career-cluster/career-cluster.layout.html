@@ -1,37 +1,41 @@
-<PLP-nav-header [header]="sectionObject" [report-status]="report"></PLP-nav-header>
+<PLP-nav-header [header]="sectionObject" (changeView)="changeView($event)" [report-status]="report"></PLP-nav-header>
 <form>
-      
-      <div class="row">
-        <div class="col-md-10 form-group">  
-         <p class="checkboxtitle"> <label class="question-head"><i class="fa fa-user"> </i><b>{{ questionObject.questions[0] }}</b>   <br><br>Last saved on 7/25/2016  
-          </label></p>
-       <table class="plp-table table table-bordered table-striped table-hover">
-  <tbody>
-    <tr *ngFor="let item of careerClusterData; let even = even;let odd = odd;let indx = index">
-      <td *ngIf="even">
-         <input type="checkbox"  id="{{careerClusterData[indx].ClusterID}}" 
-        [(ngModel)]="careerClusterData[indx].selected" name="{{careerClusterData[indx].ClusterName}}"
-            >
-         <p class="checkboxtitle"> <label >{{careerClusterData[indx].ClusterName}}</label></p>
-      </td>
-       <td *ngIf="even">
-         <input type="checkbox"  id="{{careerClusterData[indx+1].ClusterID}}" 
-       [(ngModel)]="careerClusterData[indx+1].selected" name="{{careerClusterData[indx+1].ClusterName}}" 
-       >
-          <p class="checkboxtitle"><label >{{careerClusterData[indx+1].ClusterName}}</label></p>
-       </td>
-    </tr>
-   
-  </tbody>
-</table>
-        </div>
-          <div *ngIf="(report=='')" class="col-md-5 form-group">
-          <button type="button" class="btn btn-red-plp" (click)="SaveCareerCluster()">
-            <i class="fa fa-save white-color"> </i> Save Information</button>
  
-        </div>
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1 form-group">
+    <div *ngIf="edited" class="alert alert-success">
+        <strong>Success!</strong> {{successLabel}}
       </div>
-     
-      
-      
-    </form>
+
+      <div *ngIf="errorVal" class="alert alert-danger">
+        <strong>Oops!</strong> {{successLabel}}
+      </div>
+      <label class="question-head">
+              <p class="ptitle">{{ questionObject.questions[0] }}</p>   
+              Last Saved On {{ careerClusterCheck | customDate}}
+            </label>
+
+      <table class="plp-table table table-bordered table-striped table-hover">
+        <tbody>
+          <tr *ngFor="let item of careerClusterData; let even = even;let odd = odd;let indx = index">
+            <td *ngIf="even">
+              <input type="checkbox" id="{{careerClusterData[indx].ClusterID}}" [(ngModel)]="careerClusterData[indx].selected" name="{{careerClusterData[indx].ClusterName}}">
+              <p class="checkboxtitle"> <label>{{careerClusterData[indx].ClusterName}}</label></p>
+            </td>
+            <td *ngIf="even">
+              <input type="checkbox" id="{{careerClusterData[indx+1].ClusterID}}" [(ngModel)]="careerClusterData[indx+1].selected" name="{{careerClusterData[indx+1].ClusterName}}">
+              <p class="checkboxtitle"><label>{{careerClusterData[indx+1].ClusterName}}</label></p>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    
+    <div *ngIf="(report=='')" >
+      <button type="button" class="btn btn-red-plp" (click)="SaveCareerCluster()">
+            <i class="fa fa-save white-color"> </i> Save Information</button>
+
+    </div>
+  </div>
+</div>
+</form>

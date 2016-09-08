@@ -1,27 +1,34 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { ApiCallClass } from '../../../../shared/apicall.model';
+import { CustomDate } from '../../../../shared/customPipes';
 import { SchoolsOfInterestModel } from './schools-of-interest.model';
 import { PLPNavHeaderComponent } from '../shared/PLP-nav-header.component';
 import { SharedService } from '../shared/shared-service.service';
 import { ServerApi } from '../../../../shared/app.apicall.service';
+import { Utilities } from '../../../../shared/utilities.class';
 import sections = require("../../../../shared/app.constants");
 
 @Component({
   selector: 'schools-of-interest',
   templateUrl: './app/modules/PLP/shared/schools-of-interest/schools-of-interest.layout.html',
   directives:[PLPNavHeaderComponent],
-   providers : [ SharedService , ServerApi , ApiCallClass]
+   providers : [ SharedService , ServerApi , ApiCallClass, Utilities],
+   pipes: [CustomDate]
 })
 export class SchoolsOfInterestComponent {
   @Input('report-status') report="";
+   @Output('changeView') changeInrView= new EventEmitter();
+   @Output() containResult= new EventEmitter();
+   
   schoolsOfInterestData:SchoolsOfInterestModel[];
   endurl;
   sectionObject;
   fileName;
+  tableNoData;
   section = "SchoolsOfInterest";  
 
-     constructor(private shared:SharedService, private serverApi:ServerApi,private apiJson:ApiCallClass) {
+     constructor(private shared:SharedService, private serverApi:ServerApi,private apiJson:ApiCallClass,private utils:Utilities) {
     }
 
     ngOnInit(){
@@ -33,6 +40,8 @@ export class SchoolsOfInterestComponent {
   getSchoolsOfInterestData(){
        let urlObj=this.shared.getUrlObject(this.section);
        this.apiJson.endUrl = urlObj.endUrl;
+        let nodata = this.shared.getTableNoData(this.section);
+        this.tableNoData = nodata;
        let data={
                 stateAbbr :this.shared.getStateAbbr(),	
                 accountID :this.shared.getAccountId(),
@@ -47,8 +56,18 @@ export class SchoolsOfInterestComponent {
         this.serverApi.callApi([this.apiJson]).subscribe((response)=>{
 
             this.schoolsOfInterestData=response[0].Result;
-        });
+            
+           if(response[0].Result!=null){
+                this.containResult.emit({"section":this.section,result:"filled"});
+              }
+              else{
+                this.containResult.emit({"section":this.section,result:"empty"});
+              }
+         },this.utils.handleError);
   }
   
+  changeView(evnt){
+      this.changeInrView.emit(evnt);
+  }
  
 }

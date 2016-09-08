@@ -1,24 +1,23 @@
 // Use the @Injectable decorator for your Constants class
 export var sectionsArr = [
-                  { routerLink: 'personalInfo', section:'PersonalInfo', title:  "Personal Info",icon:"fa-user"},
-                  { routerLink: 'careerGoals', section:'CareerGoals', title:  "Career Goals",icon:"fa-table"},
-                  { routerLink: 'educationPlans', section:'EducationPlans', title:  "Education Plans",icon:"fa-file-text-o"},
-                  { routerLink: 'careerAssessments', section:'CareerAssessments', title:  "Career Assessments",icon:"fa-cubes"},
-                  { routerLink: 'careerCluster', section:'CareerCluster', title:  "Career Cluster",icon:"fa-user"},
-                  { routerLink: 'occAndCluster', section:'OccAndCluster', title:  "Occ And Cluster",icon:"fa-table"},
-                  { routerLink: 'coursePlan', section:'CoursePlan', title:  "Course Plan",icon:"fa-file-text-o"},
-                  { routerLink: 'graduationRequirements', section:'GraduationRequirements', title:  "Graduation Requirements",icon:"fa-cubes"},
-                  { routerLink: 'testScores', section:'TestScores', title:  "Test Scores",icon:"fa-user"},
-                  { routerLink: 'studyOfInterest', section:'StudyOfInterest', title:  "Study Of Interest",icon:"fa-table"},
-                  { routerLink: 'schoolsOfInterest', section:'SchoolsOfInterest', title:  "Schools Of Interest",icon:"fa-file-text-o"},
-                  { routerLink: 'volunteerCommunityService', section:'VolunteerCommunityService', title:  "Volunteer Community Service",icon:"fa-cubes"},
-                  { routerLink: 'extraActivities', section:'ExtraActivities', title:  "Extra Activities",icon:"fa-user"},
-                  { routerLink: 'employmentHistory', section:'EmploymentHistory',  title:  "Employment History",icon:"fa-table"},
-                  { routerLink: 'actionPlan', section:'ActionPlan', title:  "Action Plan",icon:"fa-file-text-o"},
-                  { routerLink: 'supportNetwork', section:'SupportNetwork',  title:  "Support Network",icon:"fa-cubes"},
-                  { routerLink: 'experientialLearning', section:'ExperientialLearning', title:  "Experiential Learning",icon:"fa-user"},
-                  { routerLink: 'experLearningTypes', section:'ExperientialLearningTypes',  title:  "Experiential Learning Types",icon:"fa-table"},
-                  { routerLink: 'commentsAndSignature', section:'CommentsAndSignature', title:  "Comments And Signature",icon:"fa-file-text-o"}
+                  { routerLink: 'personalInfo', section:'PersonalInfo', title:  "My Personal Information",icon:"icon-personal-info"},
+                  { routerLink: 'careerGoals', section:'CareerGoals', title:  "My Career Goals",icon:"icon-career-goals"},
+                  { routerLink: 'educationPlans', section:'EducationPlans', title:  "My Education Plans",icon:"icon-education-plans"},
+                  { routerLink: 'careerAssessments', section:'CareerAssessments', title:  "Self-knowledge and Career Assessments",icon:"icon-self-knowledge-career-assess"},
+                  { routerLink: 'careerCluster', section:'CareerCluster', title:  "Career Clusters of Interest",icon:"icon-career-clusters-interest"},
+                  { routerLink: 'occAndCluster', section:'OccAndCluster', title:  "Occupations and Clusters of Interest",icon:"icon-occ-and-clusters-interest"},
+                  { routerLink: 'coursePlan', section:'CoursePlan', title:  "Course Plan",icon:"icon-course-plan"},
+                  { routerLink: 'graduationRequirements', section:'GraduationRequirements', title:  "Graduation Requirements",icon:"icon-grad-requirement"},
+                  { routerLink: 'testScores', section:'TestScores', title:  "Test Scores",icon:"icon-test-scores"},
+                  { routerLink: 'studyOfInterest', section:'StudyOfInterest', title:  "Programs of Study of Interest",icon:"icon-prog-of-study-of-interest"},
+                  { routerLink: 'schoolsOfInterest', section:'SchoolsOfInterest', title:  "Post-secondary Schools of Interest",icon:"icon-postsecondary-schools"},
+                  { routerLink: 'volunteerCommunityService', section:'VolunteerCommunityService', title:  "Volunteer and Community Service",icon:"icon-volun-comm-service"},
+                  { routerLink: 'extraActivities', section:'ExtraActivities', title:  "Extracurricular Activities",icon:"icon-extracurricular-activities"},
+                  { routerLink: 'employmentHistory', section:'EmploymentHistory',  title:  "Employment History and Work-based Learning Experience",icon:"icon-employment-historyWork"},
+                  { routerLink: 'actionPlan', section:'ActionPlan', title:  "My Action Plan for this Year",icon:"icon-action-plan"},
+                  { routerLink: 'supportNetwork', section:'SupportNetwork',  title:  "My Support Network",icon:"icon-support-network"},
+                  { routerLink: 'experientialLearning', section:'ExperientialLearning', title:  "Experiential Learning",icon:"icon-experiential-learning"},
+                  { routerLink: 'commentsAndSignature', section:'CommentsAndSignature', title:  "Comments and Signatures",icon:"icon-comments-sign"}
         ];
 
 export var questionsArr=[
@@ -29,7 +28,6 @@ export var questionsArr=[
                   { section:'GraduationRequirements', questions:["Enter your planned and completed credits."] },
                   { section:'TestScores', questions:["Enter up to 6 test names with test scores."] },
                   { section:'ActionPlan', questions:["What is your action plan for this year?"] },
-                   { section:'ExperientialLearning', questions:["What is experiential learning?"] },
                   { section:'SupportNetwork', questions:["Who will encourage and support you to achieve your goals?"] }     
         ];
 
@@ -65,20 +63,43 @@ export var EndUrlArr = [
                   {  section:'EmploymentHistory', endUrl:'Employment' },
                   {  section:'ActionPlan', endUrl:'Reflection',fieldName:'ActionPlan'},
                   {  section:'SupportNetwork', endUrl:'Reflection',fieldName:'Network'},
-                  {  section:'ExperientialLearning', endUrl:'Reflection',fieldName:'TBD'},
-                  {  section:'ExperientialLearningTypes', 
-                        endUrl:'Reflection',fn1:'ELPreApp',fn2: 'ELPreAppList',
-                        fn3:'ELCoopWork',fn4:'ELCoopWorkList',
-                        fn5:'ELService', fn6:'ELServiceList',
-                        fn7:'ELEpren', fn8:'ELEprenList',
-                        fn9:'ELTour', fn10:'ELTourList',
-                        fn11:'ELIntern', fn12:'ELInternList',
-                        fn13:'ELShadow', fn14:'ELShadowList',
-                        fn15:'ELMentor',fn16:'ELMentorList',
-                        fn17:'ELWBLearn', fn18:'ELWBLearnList'},
-                        {  section:'CommentsAndSignature',endUrl:'CommentsAndSig'}
+                  {  section:'ExperientialLearning',  endUrl:'ExperientialLearning'},
+                  {  section:'CommentsAndSignature',endUrl:'CommentsAndSig'}
         ];
 
 export var returnUrl = {
-                        url:"http://localhost:3000/newPassword/uname/stateAbbr/token"
+                        url:window.location.protocol+"//"+window.location.host+"/login/newPassword"
                         } 
+
+export var tableNoData = [
+        { section:['CareerAssessments','OccAndCluster','CoursePlan','StudyOfInterest','SchoolsOfInterest',
+        'ExtraActivities','EmploymentHistory','VolunteerCommunityService' ],text: "You do not have any data"}
+];
+
+export var ExperientialLearningArr = [
+       {name:'Youth/Pre-Apprenticeship',subName:'ELPreApp',subNameList:'ELPreAppList',
+       Myself:false,Careers:false,Future:false,Try:false},
+       {name:'Cooperative work experience',subName:'ELCoopWork',subNameList:'ELCoopWorkList',
+       Myself:false,Careers:false,Future:false,Try:false},
+       {name:'Service Learning',subName:'ELService',subNameList:'ELServiceList',
+       Myself:false,Careers:false,Future:false,Try:false},
+       {name:'Entrepreneurship',subName:'ELEpren',subNameList:'ELEprenList',
+       Myself:false,Careers:false,Future:false,Try:false},
+       {name:'Rotation/tour/field trip',subName:'ELTour',subNameList:'ELTourList',
+       Myself:false,Careers:false,Future:false,Try:false},
+       {name:'Internship',subName:'ELIntern',subNameList:'ELInternList',
+       Myself:false,Careers:false,Future:false,Try:false},
+       {name:'Box shadow',subName:'ELShadow',subNameList:'ELShadowList',
+       Myself:false,Careers:false,Future:false,Try:false},
+       {name:'Mentoring',subName:'ELMentor',subNameList:'ELMentorList',
+       Myself:false,Careers:false,Future:false,Try:false},
+       {name:'Work-based Learning',subName:'ELWBLearn',subNameList:'ELWBLearnList',
+       Myself:false,Careers:false,Future:false,Try:false}
+];
+
+
+export var successMessageArr = [
+         { section:['CareerGoals','EducationPlans','CareerCluster'
+         ,'ActionPlan','SupportNetwork','ExperientialLearning','PersonalInfo','TestScores','CommentsAndSignature'
+       ],save: "Data has been successfully saved.",update:"Data has been successfully updated",error:"Error occured while submitting the data."},
+    ];

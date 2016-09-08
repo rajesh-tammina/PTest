@@ -1,4 +1,4 @@
-System.register(['@angular/core', '../../../../shared/apicall.model', './course-plan.model', '../shared/PLP-nav-header.component', '../shared/shared-service.service', '../../../../shared/app.apicall.service', "../../../../shared/app.constants"], function(exports_1, context_1) {
+System.register(['@angular/core', '../../../../shared/apicall.model', './course-plan.model', '../shared/PLP-nav-header.component', '../shared/shared-service.service', '../../../../shared/app.apicall.service', '../../../../shared/utilities.class', "../../../../shared/app.constants"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '../../../../shared/apicall.model', './course-
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, apicall_model_1, course_plan_model_1, PLP_nav_header_component_1, shared_service_service_1, app_apicall_service_1, sections;
+    var core_1, apicall_model_1, course_plan_model_1, PLP_nav_header_component_1, shared_service_service_1, app_apicall_service_1, utilities_class_1, sections;
     var CoursePlanComponent;
     return {
         setters:[
@@ -32,17 +32,23 @@ System.register(['@angular/core', '../../../../shared/apicall.model', './course-
             function (app_apicall_service_1_1) {
                 app_apicall_service_1 = app_apicall_service_1_1;
             },
+            function (utilities_class_1_1) {
+                utilities_class_1 = utilities_class_1_1;
+            },
             function (sections_1) {
                 sections = sections_1;
             }],
         execute: function() {
             CoursePlanComponent = (function () {
-                function CoursePlanComponent(shared, coursePlanData, serverApi, apiJson) {
+                function CoursePlanComponent(shared, utils, coursePlanData, serverApi, apiJson) {
                     this.shared = shared;
+                    this.utils = utils;
                     this.coursePlanData = coursePlanData;
                     this.serverApi = serverApi;
                     this.apiJson = apiJson;
                     this.report = "";
+                    this.changeInrView = new core_1.EventEmitter();
+                    this.containResult = new core_1.EventEmitter();
                     this.section = "CoursePlan";
                     this.coursePlan = new course_plan_model_1.CoursePlanModel;
                     this.sectionObject = this.shared.getSectionObject(this.section);
@@ -65,21 +71,37 @@ System.register(['@angular/core', '../../../../shared/apicall.model', './course-
                     this.apiJson.data = dat;
                     this.serverApi.callApi([this.apiJson]).subscribe(function (response) {
                         _this.testModel = response[0].Result;
-                        // alert("response:"+JSON.stringify( this.coursePlan));
-                    });
+                        if (response[0].Result != null) {
+                            _this.containResult.emit({ "section": _this.section, result: "filled" });
+                        }
+                        else {
+                            _this.containResult.emit({ "section": _this.section, result: "empty" });
+                        }
+                    }, this.utils.handleError);
+                };
+                CoursePlanComponent.prototype.changeView = function (evnt) {
+                    this.changeInrView.emit(evnt);
                 };
                 __decorate([
                     core_1.Input('report-status'), 
                     __metadata('design:type', Object)
                 ], CoursePlanComponent.prototype, "report", void 0);
+                __decorate([
+                    core_1.Output('changeView'), 
+                    __metadata('design:type', Object)
+                ], CoursePlanComponent.prototype, "changeInrView", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', Object)
+                ], CoursePlanComponent.prototype, "containResult", void 0);
                 CoursePlanComponent = __decorate([
                     core_1.Component({
                         selector: 'course-plan',
                         templateUrl: './app/modules/PLP/shared/course-plan/course-plan.layout.html',
                         directives: [PLP_nav_header_component_1.PLPNavHeaderComponent],
-                        providers: [shared_service_service_1.SharedService, app_apicall_service_1.ServerApi, apicall_model_1.ApiCallClass, course_plan_model_1.CoursePlanModel]
+                        providers: [shared_service_service_1.SharedService, app_apicall_service_1.ServerApi, apicall_model_1.ApiCallClass, course_plan_model_1.CoursePlanModel, utilities_class_1.Utilities]
                     }), 
-                    __metadata('design:paramtypes', [shared_service_service_1.SharedService, course_plan_model_1.CoursePlanModel, app_apicall_service_1.ServerApi, apicall_model_1.ApiCallClass])
+                    __metadata('design:paramtypes', [shared_service_service_1.SharedService, utilities_class_1.Utilities, course_plan_model_1.CoursePlanModel, app_apicall_service_1.ServerApi, apicall_model_1.ApiCallClass])
                 ], CoursePlanComponent);
                 return CoursePlanComponent;
             }());

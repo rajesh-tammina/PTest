@@ -1,10 +1,11 @@
-import { Component,Input } from '@angular/core';
+import { Component,Input, Output, EventEmitter } from '@angular/core';
 
 import { ApiCallClass } from '../../../../shared/apicall.model';
 import { GraduationRequirementsModel } from './graduation-requirements.model';
 import { PLPNavHeaderComponent } from '../shared/PLP-nav-header.component';
 import { SharedService } from '../shared/shared-service.service';
 import { ServerApi } from '../../../../shared/app.apicall.service';
+import { Utilities } from '../../../../shared/utilities.class';
 import sections = require("../../../../shared/app.constants");
 
 
@@ -12,11 +13,14 @@ import sections = require("../../../../shared/app.constants");
   selector: 'graduation-requirements',
   templateUrl: './app/modules/PLP/shared/graduation-requirements/graduation-requirements.layout.html',
   directives:[PLPNavHeaderComponent],
-  providers : [ SharedService , ServerApi , ApiCallClass ]
+  providers : [ SharedService , ServerApi , ApiCallClass,Utilities ]
 })
 
 export class GraduationRequirementsComponent {
     @Input('report-status') report="";
+   @Output('changeView') changeInrView= new EventEmitter();
+   @Output() containResult= new EventEmitter();
+   
     graduationRequirementsData = new GraduationRequirementsModel();
     sectionObject;
     questionObject;
@@ -24,7 +28,7 @@ export class GraduationRequirementsComponent {
    section = "GraduationRequirements";  
 
     
-    constructor(private shared:SharedService, private serverApi:ServerApi,private apiJson:ApiCallClass) {
+    constructor(private shared:SharedService,private utils:Utilities, private serverApi:ServerApi,private apiJson:ApiCallClass) {
     }
 
     ngOnInit(){
@@ -49,12 +53,22 @@ export class GraduationRequirementsComponent {
         this.serverApi.callApi([this.apiJson]).subscribe((response)=>{
 
             this.graduationRequirementsData=response[0].Result;
-        });
+            
+            if(response[0].Result!=null){
+                this.containResult.emit({"section":this.section,result:"filled"});
+              }
+              else{
+                this.containResult.emit({"section":this.section,result:"empty"});
+              }
+         },this.utils.handleError);
   }
   
    postGraduationRequirementsData(){
-      alert("graduationRequirementsData is:"+JSON.stringify(this.graduationRequirementsData));
+   
+  }
 
+  changeView(evnt){
+      this.changeInrView.emit(evnt);
   }
   
 }

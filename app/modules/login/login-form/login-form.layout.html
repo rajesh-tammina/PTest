@@ -1,25 +1,51 @@
 <div class="col-md-4 col-sm-6 col-xs-12 form-box">
-          <div class="form-top">
-            <div class="form-top-left">
-              <h3>Login to PLP</h3>
-            </div>
-          </div>
-          <div class="form-bottom">
-            <form role="form" class="form-horizontal" id="loginform" (submit)="login()">
-              <div class="input-group login-m-b" >
-                <input type="text" placeholder="UserName" name="Username" class="form-control" [(ngModel)]='userdata.username' required>
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> </div>
-              <div class="input-group login-m-b">
-                <input type="password" placeholder="Password" name="Password" class="form-control" id="login-password" [(ngModel)]='userdata.password' required>
-                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span> </div>
-              <div class="form-group" > 
-                <!-- Button -->
-                
-                <div class="col-sm-12 controls"> <button type="submit" class="btn-login btn-success login-btn" id="btn-login" >Login </button> </div>
-              </div>
-              <div class="input-group">
-                <label class="lofing-forgot"><a routerLink="/login/passwordRecovery">Forgot your username or password? </a></label>
-              </div>
-            </form>
-          </div>
+  <div class="form-top">
+    <div class="form-top-left">
+      <h3>Login to PLP</h3>
+    </div>
+  </div>
+  <div class="form-bottom">
+    <form [ngFormModel]="PLPLoginForm" class="form-horizontal" id="loginform" (ngSubmit)="login()">
+
+      <span *ngIf="session" class="error-color">Your session has expired<br></span>
+      <span *ngIf="errorVal" class="error-color">
+                      {{errorMessage.invalid_credentials}}</span>
+      <span *ngIf="UserName.touched && UserName.errors">
+                        <span *ngIf="UserName.errors.required" class="error-color">
+                            {{errorMessage.username_req}}</span>
+      <span *ngIf="UserName.errors.invalidText" class="error-color">
+                            {{errorMessage.script_tags_error}}</span>
+      </span>
+
+
+      <div class="input-group login-m-b">
+        <input type="text" placeholder="Username" name="Username" class="form-control" [(ngModel)]='userdata.username' ngControl="UserName"
+          #UserName="ngForm">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span></div>
+
+      <span *ngIf="Password.touched && Password.errors">
+                      <span *ngIf="Password.errors.required" 
+                      class="error-color">
+                      {{errorMessage.password_req}}</span>
+      <span *ngIf="Password.errors.invalidText" class="error-color">
+                      {{errorMessage.script_tags_error}}</span>
+      </span>
+
+      <div class="input-group login-m-b">
+        <input type="password" placeholder="Password" name="Password" class="form-control" id="login-password" [(ngModel)]='userdata.password'
+          ngControl="Password" #Password="ngForm">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span> </div>
+      <div class="form-group">
+
+        <div class="col-md-12 controls">
+          <button type="Submit" class="btn btn-login1 btn-success" [disabled]="!(PLPLoginForm.valid)">
+            Login</button>
+        </div>
+
+      </div>
+      <div class="input-group">
+        <label class="lofing-forgot"><a routerLink="/login/passwordRecovery">Forgot your username or password? </a></label>
+      </div>
+    </form>
+  </div>
 </div>

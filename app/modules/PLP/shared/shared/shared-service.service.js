@@ -1,4 +1,4 @@
-System.register(['@angular/core', "../../../../shared/app.constants"], function(exports_1, context_1) {
+System.register(['@angular/core', "../../../../shared/app.constants", "../../../../shared/messages"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', "../../../../shared/app.constants"], function(
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, sections;
+    var core_1, sections, messages;
     var SharedService;
     return {
         setters:[
@@ -19,6 +19,9 @@ System.register(['@angular/core', "../../../../shared/app.constants"], function(
             },
             function (sections_1) {
                 sections = sections_1;
+            },
+            function (messages_1) {
+                messages = messages_1;
             }],
         execute: function() {
             SharedService = (function () {
@@ -28,6 +31,9 @@ System.register(['@angular/core', "../../../../shared/app.constants"], function(
                     this.questionsList = sections.questionsArr;
                     this.endUrlObj = sections.EndUrlArr;
                     this.returnUrl = sections.returnUrl;
+                    this.noDataList = sections.tableNoData;
+                    this.messages = messages.messages;
+                    this.successMessageList = sections.successMessageArr;
                 }
                 /*This function returns the list of all section objects
                  */
@@ -45,9 +51,9 @@ System.register(['@angular/core', "../../../../shared/app.constants"], function(
                                 obj.totalCount = _this.sectionsList.length;
                                 obj.currentCount = key + 1;
                                 if (key != 0)
-                                    obj.previousSec = _this.sectionsList[key - 1].routerLink;
+                                    obj.previousSec = _this.sectionsList[key - 1].section;
                                 if (key != _this.sectionsList.length - 1)
-                                    obj.nextSec = _this.sectionsList[key + 1].routerLink;
+                                    obj.nextSec = _this.sectionsList[key + 1].section;
                                 sectionObject = obj;
                             }
                         });
@@ -58,7 +64,6 @@ System.register(['@angular/core', "../../../../shared/app.constants"], function(
                 */
                 SharedService.prototype.getQuestion = function (section) {
                     var questionObject;
-                    //alert("getQuestion questions list:"+JSON.stringify(this.questionsList));
                     if (this.questionsList.length > 0) {
                         this.questionsList.forEach(function (obj, key) {
                             if (obj.section + "" == section + "") {
@@ -80,20 +85,52 @@ System.register(['@angular/core', "../../../../shared/app.constants"], function(
                     }
                     return urlObj;
                 };
+                //This function is used to show the no data information in the tables
+                SharedService.prototype.getTableNoData = function (section) {
+                    var noData;
+                    if (this.noDataList.length > 0) {
+                        this.noDataList.forEach(function (objF, key) {
+                            objF.section.forEach(function (obj, key) {
+                                if (obj + "" == section + "") {
+                                    noData = objF.text;
+                                }
+                            });
+                        });
+                    }
+                    return noData;
+                };
+                //the below function is to display the success data success message
+                SharedService.prototype.getSuccessMessage = function (section) {
+                    var message;
+                    if (this.successMessageList.length > 0) {
+                        this.successMessageList.forEach(function (objF, key) {
+                            objF.section.forEach(function (obj, key) {
+                                if (obj + "" == section + "") {
+                                    message = objF;
+                                }
+                            });
+                        });
+                    }
+                    return message;
+                };
                 SharedService.prototype.getDefaultStateAbbr = function () {
-                    return "IC"; //window.localStorage.getItem("stateAbbr");
+                    return "MN"; //window.localStorage.getItem("stateAbbr");
                 };
                 SharedService.prototype.getStateAbbr = function () {
-                    return "IC"; //window.localStorage.getItem("stateAbbr");
+                    return "MN"; //window.localStorage.getItem("stateAbbr");
                 };
                 SharedService.prototype.getAccountId = function () {
-                    return "7662"; //window.localStorage.getItem("accountID");
+                    return window.localStorage.getItem("accountID");
                 };
                 SharedService.prototype.getAuthKey = function () {
                     return window.localStorage.getItem("auth_key");
                 };
                 SharedService.prototype.getReturnUrl = function () {
                     return this.returnUrl.url;
+                };
+                SharedService.prototype.getMessages = function () {
+                    //  alert("all messages:"+JSON.stringify(this.messages));
+                    return this.messages;
                 };
                 SharedService = __decorate([
                     core_1.Injectable(), 

@@ -42,6 +42,8 @@ System.register(['@angular/core', '../shared/PLP-nav-header.component', '../shar
                     this.apiJson = apiJson;
                     this.shared = shared;
                     this.report = "";
+                    this.changeInrView = new core_1.EventEmitter();
+                    this.containResult = new core_1.EventEmitter();
                     this.section = "SupportNetwork";
                     this.field = "CareerGoals";
                 }
@@ -49,10 +51,24 @@ System.register(['@angular/core', '../shared/PLP-nav-header.component', '../shar
                     this.sectionObject = this.shared.getSectionObject(this.section);
                     this.questionObject = this.shared.getQuestion(this.section);
                 };
+                SupportNetworkComponent.prototype.changeView = function (evnt) {
+                    this.changeInrView.emit(evnt);
+                };
+                SupportNetworkComponent.prototype.changeFilledStatus = function (evnt) {
+                    this.containResult.emit(evnt);
+                };
                 __decorate([
                     core_1.Input('report-status'), 
                     __metadata('design:type', Object)
                 ], SupportNetworkComponent.prototype, "report", void 0);
+                __decorate([
+                    core_1.Output('changeView'), 
+                    __metadata('design:type', Object)
+                ], SupportNetworkComponent.prototype, "changeInrView", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', Object)
+                ], SupportNetworkComponent.prototype, "containResult", void 0);
                 SupportNetworkComponent = __decorate([
                     core_1.Component({
                         selector: 'support-network',

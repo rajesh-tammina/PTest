@@ -1,31 +1,72 @@
-<PLP-nav-header [header]="sectionObject" [report-status]="report"></PLP-nav-header>
+<PLP-nav-header [header]="sectionObject" (changeView)="changeView($event)" [report-status]="report"></PLP-nav-header>
 <div class="row">
 
-        <div class="col-md-10 form-group">  
-                        
-          <div class="table-responsive"> 
-                <table class="plp-table table table-bordered table-striped table-hover">
-                    <thead class="thead-inverse">
-                      <tr>
-                        <th>Assessment</th>
-                        <th>Date Saved</th>
-                        <th>What I Learned</th>
+  <div class="col-md-10 col-md-offset-1 form-group">
 
-                      </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor='let item of careerAssessmentsData'>
-                            <td>{{item.SortName}}</td>
-                            <td>{{item.UpdatedTimeStamp}}</td>
-                            <td>{{item.UserNotes}}</td>      
-                          </tr>
-                    </tbody>
-                </table>
-                
-                
-                <div class="clearfix"> </div>
-          
-            
-            </div>
-        </div>
-      </div>
+    <div class="desktop-table">
+      <table class="plp-table table table-bordered table-striped table-hover">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Assessment</th>
+            <th>Date Saved</th>
+            <th>What I Learned</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="careerAssessmentsData && careerAssessmentsData.length == 0" align="center">
+            <td colspan="3" style="font-size:18px;">{{tableNoData}}</td>
+          </tr>
+          <tr *ngFor='let item of careerAssessmentsData'>
+            <td>{{item.SortName}}</td>
+            <td>{{item.UpdatedTimeStamp | customDate}}</td>
+            <!-- | date:"MM/dd/yyyy"-->
+            <td>{{item.UserNotes}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+
+      <div class="clearfix"> </div>
+
+
+    </div>
+    <div   style="width: 100%;">
+      <table class="mobile-table  table-bordered table-striped table-hover" style="width: 100%;">
+
+        <tbody>
+
+
+          <tr *ngIf="careerAssessmentsData && careerAssessmentsData.length == 0" align="center">
+            <td   colspan="3" style="font-size:18px;">{{tableNoData}}</td>
+          </tr>
+          <tr *ngFor='let item of careerAssessmentsData'>
+            <td  >
+              <table>
+                <tr>
+                  <td> Assessment</td>
+                  <td>{{item.SortName}}</td>
+                </tr>
+                <tr>
+                  <td>Date Saved</td>
+                  <td>{{item.UpdatedTimeStamp | customDate}}</td>
+                </tr>
+                <!-- | date:"MM/dd/yyyy"-->
+                <tr>
+                  <td>What I Learned</td>
+                  <td>{{item.UserNotes}}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
+      <div class="clearfix"> </div>
+
+
+    </div>
+
+  </div>
+</div>

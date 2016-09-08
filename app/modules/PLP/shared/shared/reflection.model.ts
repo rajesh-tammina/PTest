@@ -1,13 +1,13 @@
 export class ReflectionModel{
       
         UserNotes: String;
-        UpdatedTimeStamp: Date;
-        Today:Date;
+        UpdatedTimeStamp: String;
+        Today:String;
 
       constructor(){
-        this.UpdatedTimeStamp = new Date;
+        this.UpdatedTimeStamp = "";
         this.UserNotes ="";
-        this.Today=new Date;
+        this.Today="";
       }
 }
 

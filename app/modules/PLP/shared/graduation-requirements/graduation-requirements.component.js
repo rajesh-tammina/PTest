@@ -1,4 +1,4 @@
-System.register(['@angular/core', '../../../../shared/apicall.model', './graduation-requirements.model', '../shared/PLP-nav-header.component', '../shared/shared-service.service', '../../../../shared/app.apicall.service'], function(exports_1, context_1) {
+System.register(['@angular/core', '../../../../shared/apicall.model', './graduation-requirements.model', '../shared/PLP-nav-header.component', '../shared/shared-service.service', '../../../../shared/app.apicall.service', '../../../../shared/utilities.class'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '../../../../shared/apicall.model', './graduat
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, apicall_model_1, graduation_requirements_model_1, PLP_nav_header_component_1, shared_service_service_1, app_apicall_service_1;
+    var core_1, apicall_model_1, graduation_requirements_model_1, PLP_nav_header_component_1, shared_service_service_1, app_apicall_service_1, utilities_class_1;
     var GraduationRequirementsComponent;
     return {
         setters:[
@@ -31,14 +31,20 @@ System.register(['@angular/core', '../../../../shared/apicall.model', './graduat
             },
             function (app_apicall_service_1_1) {
                 app_apicall_service_1 = app_apicall_service_1_1;
+            },
+            function (utilities_class_1_1) {
+                utilities_class_1 = utilities_class_1_1;
             }],
         execute: function() {
             GraduationRequirementsComponent = (function () {
-                function GraduationRequirementsComponent(shared, serverApi, apiJson) {
+                function GraduationRequirementsComponent(shared, utils, serverApi, apiJson) {
                     this.shared = shared;
+                    this.utils = utils;
                     this.serverApi = serverApi;
                     this.apiJson = apiJson;
                     this.report = "";
+                    this.changeInrView = new core_1.EventEmitter();
+                    this.containResult = new core_1.EventEmitter();
                     this.graduationRequirementsData = new graduation_requirements_model_1.GraduationRequirementsModel();
                     this.section = "GraduationRequirements";
                 }
@@ -61,23 +67,39 @@ System.register(['@angular/core', '../../../../shared/apicall.model', './graduat
                     this.apiJson.data = dat;
                     this.serverApi.callApi([this.apiJson]).subscribe(function (response) {
                         _this.graduationRequirementsData = response[0].Result;
-                    });
+                        if (response[0].Result != null) {
+                            _this.containResult.emit({ "section": _this.section, result: "filled" });
+                        }
+                        else {
+                            _this.containResult.emit({ "section": _this.section, result: "empty" });
+                        }
+                    }, this.utils.handleError);
                 };
                 GraduationRequirementsComponent.prototype.postGraduationRequirementsData = function () {
-                    alert("graduationRequirementsData is:" + JSON.stringify(this.graduationRequirementsData));
+                };
+                GraduationRequirementsComponent.prototype.changeView = function (evnt) {
+                    this.changeInrView.emit(evnt);
                 };
                 __decorate([
                     core_1.Input('report-status'), 
                     __metadata('design:type', Object)
                 ], GraduationRequirementsComponent.prototype, "report", void 0);
+                __decorate([
+                    core_1.Output('changeView'), 
+                    __metadata('design:type', Object)
+                ], GraduationRequirementsComponent.prototype, "changeInrView", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', Object)
+                ], GraduationRequirementsComponent.prototype, "containResult", void 0);
                 GraduationRequirementsComponent = __decorate([
                     core_1.Component({
                         selector: 'graduation-requirements',
                         templateUrl: './app/modules/PLP/shared/graduation-requirements/graduation-requirements.layout.html',
                         directives: [PLP_nav_header_component_1.PLPNavHeaderComponent],
-                        providers: [shared_service_service_1.SharedService, app_apicall_service_1.ServerApi, apicall_model_1.ApiCallClass]
+                        providers: [shared_service_service_1.SharedService, app_apicall_service_1.ServerApi, apicall_model_1.ApiCallClass, utilities_class_1.Utilities]
                     }), 
-                    __metadata('design:paramtypes', [shared_service_service_1.SharedService, app_apicall_service_1.ServerApi, apicall_model_1.ApiCallClass])
+                    __metadata('design:paramtypes', [shared_service_service_1.SharedService, utilities_class_1.Utilities, app_apicall_service_1.ServerApi, apicall_model_1.ApiCallClass])
                 ], GraduationRequirementsComponent);
                 return GraduationRequirementsComponent;
             }());

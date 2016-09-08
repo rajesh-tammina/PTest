@@ -1,17 +1,4 @@
-<div class="login-bg">
-<!-- Top content -->
-<div class="top-content align-middle">
-  <div class="inner-bg">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8 col-sm-6 col-xs-12">
-          <div class="text">
-          <h1 class="text-align-login">Personal Learning Plan</h1>
-          <div class="description">
-            <p class=" text-align"> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. </p>
-          </div>
-          </div>
-        </div>
+
         <div class="col-md-4 col-sm-6 col-xs-12 form-box">
           <div class="form-top">
             <div class="form-top-left">
@@ -19,25 +6,43 @@
             </div>
           </div>
           <div class="form-bottom">
-            <form role="form" class="form-horizontal" id="loginform" (submit)="login()">
+            <form [ngFormModel]="newPasswordForm" role="form" class="form-horizontal" id="loginform" (ngSubmit)="sendNewPassword()">
+              <span *ngIf="errorVal" class="error-color">Please check!Incorrect Password</span>
+                     <span *ngIf="successVal" class="success-color"><b>Your password got successfully submitted</b><br>
+                     </span>
+                   <span *ngIf="newPassword.touched && newPassword.errors" >
+                 <span *ngIf="newPassword.errors.required" class="error-color">
+                 {{errorMessage.new_pass_reg}}</span> 
+                  <span *ngIf="newPassword.errors.invalidPassword" 
+                        class="error-color">
+                      {{errorMessage.password_strength}}</span> 
+                 </span>
+          
               <div class="input-group login-m-b" >
-                <input type="password" placeholder="New Password" name="NewPassword" class="form-control"  required>
+                <input type="password" placeholder="New Password" name="NewPassword" class="form-control"  
+                ngControl="newPassword" #newPassword="ngForm">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>  </div>
+                 <span *ngIf="confirmPassword.touched && confirmPassword.errors">
+                  <span *ngIf="confirmPassword.errors.required" 
+                   class="error-color">
+                 {{errorMessage.confirm_pass_reg}}</span> 
+                 <span *ngIf="confirmPassword.errors.invalidText" 
+                  class="error-color">
+                 {{errorMessage.script_tags_error}}</span> 
+           </span>
               <div class="input-group login-m-b">
-                <input type="password" placeholder="Confirm Password" name="ConfirmPassword" class="form-control" id="login-password"  required>
+                <input type="password" placeholder="Confirm Password" name="ConfirmPassword" class="form-control" id="login-password"  
+                 [(ngModel)]='userdata.Password' ngControl="confirmPassword" #confirmPassword="ngForm">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span> </div>
               <div class="form-group" > 
                 <!-- Button -->
-                
                 <div class="col-sm-12 controls"> 
-                    <button type="submit" class="btn-login btn-success login-btn" id="btn-login" >Submit</button> </div>
+                    <button type="submit" class="btn btn-login1 btn-success" id="btn-login" [disabled]="!newPasswordForm.valid">Submit</button> </div>
               </div>
-             
+              <span *ngIf="successVal" class="success-color">
+                     <a (click)="RedirectToLogin()" ><u>Click here to Login</u></a>
+                     </span>
             </form>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
+  

@@ -1,2 +1,155 @@
-<PLP-nav-header [header]="sectionObject" [report-status]="report"></PLP-nav-header>
-<reflection [fieldName]="field" [sectionName] = "section"  [question]="questionObject.questions[0]" [report-status]="report"></reflection>
+<PLP-nav-header [header]="sectionObject" (changeView)="changeView($event)" [report-status]="report"></PLP-nav-header>
+<form [ngFormModel]="ExperientialLearningForm" (ngSubmit)="SaveExperientialLearning()">
+  <div class="row">
+  <div class="col-md-10 col-md-offset-1 form-group ">
+    <div *ngIf="edited" class="alert alert-success">
+    <strong>Success!</strong> {{successLabel}}
+  </div>
+  <div *ngIf="errorVal" class="alert alert-danger">
+    <strong>Oops!</strong> {{successLabel}}
+  </div>
+    <div class="desktop-table">
+        <table class="plp-table table table-bordered table-striped table-hover">
+            <colgroup>
+           <col class="col-md-3">
+           <col class="col-md-3">
+          <col class="col-md-1">
+          <col class="col-md-1">
+          <col class="col-md-1">
+          <col class="col-md-1">
+        </colgroup>
+          <thead class="thead-inverse">
+            <tr>
+              <th>Type of Experiential Learning Activity</th>
+              <th>Summary of Experience</th>
+              <th rowspan="2">I learned more about myself
+              </th>
+              <th rowspan="2">I learned more about different careers </th>
+              <th rowspan="2"> This helped me think of some things I'd like to do in my future</th>
+              <th rowspan="2">I haven't tried this, but I'd like to.
+              </th>
+            </tr>
+            <tr>
+              <td> <em>Click on the type of
+              learning experience for
+              more information</em></td>
+              <td><i>  Answer any of these questions or write your thoughts about the <b>experience</b>.<br><br> What did I do?<br> What did I think about&nbsp;it&nbsp;? <br> What did I learn? <br> How did it
+                change my views? </i></td>
+            </tr>
+          </thead>
+          <tbody class="checkcenter">
+            <tr *ngFor="let item of TotalExperientialLearning;let indx = index" id="ExpLearn{{indx}}">
+              <td>{{item.name}}</td>
+              <td>
+                <textarea class="form-control" rows="1" [(ngModel)]="item.text" [ngModelOptions]="{standalone: true}" ngControl="ExpLearning"
+                  #ExpLearning="ngForm">
+              </textarea></td>
+              <td>
+
+                <div class="checkbox">
+                  <label><input type="checkbox"  id="Myself"   
+                [(ngModel)]="item.Myself"  [ngModelOptions]="{standalone: true}" 
+               > </label>
+                </div>
+              </td>
+              <td>
+                <div class="checkbox">
+                  <label><input type="checkbox" id="Careers"  
+                [(ngModel)]="item.Careers"  [ngModelOptions]="{standalone: true}" > </label>
+                </div>
+              </td>
+              <td>
+                <div class="checkbox">
+                  <label><input type="checkbox" id="Future"  
+                [(ngModel)]="item.Future"  [ngModelOptions]="{standalone: true}" > </label>
+                </div>
+              </td>
+              <td>
+                <div class="checkbox">
+                  <label><input type="checkbox" id="Try"  
+                [(ngModel)]="item.Try"  [ngModelOptions]="{standalone: true}" > </label>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+<div class="mobile-table" style="width: 100%; padding: 5px;">
+      <table class="table-bordered table-hover" >
+    <thead class="thead-inverse">
+    <tr>
+      <th>Type of Experiential Learning Activity</th>
+      <th>Summary of Experience</th>
+    </tr>
+      <tr>
+      <td><i>Click on the type of learning experience for more information</i></td>
+      <td><i>
+        Answer any of these questions or write your thoughts about the <b>experience</b>.
+        <br><br> What did I do?<br> What did I think about&nbsp;it&nbsp;? <br> What did I learn? <br> How did it
+        change my views? 
+        </i></td>
+    </tr>
+     </thead>
+     <tbody>
+       <tr *ngFor="let item of TotalExperientialLearning;let indx = index">
+     <td colspan="2">
+       <table>
+  <tr>
+    <td>{{item.name}}</td>
+    <td class="border-left-n">
+        <textarea class="form-control" rows="1" [(ngModel)]="item.text" [ngModelOptions]="{standalone: true}" ngControl="ExpLearning"
+                  #ExpLearning="ngForm">  </textarea></td>
+  </tr>
+  <tr>
+    <td colspan="2" ><div class="checkbox checkbox-primary">
+        <label for="checkbox1" class="label-width"> I learned more about myself </label>
+       <input type="checkbox"  id="Myself"   
+                [(ngModel)]="item.Myself"  [ngModelOptions]="{standalone: true}" 
+               >
+      </div></td>
+  </tr>
+  <tr>
+    <td colspan="2" ><div class="checkbox checkbox-primary">
+        <label for="checkbox2" class="label-width"> I learned more about different careers </label>
+        <input type="checkbox" id="Careers"  
+                [(ngModel)]="item.Careers"  [ngModelOptions]="{standalone: true}" >
+      </div></td>
+  </tr>
+ <tr>
+    <td colspan="2" ><div class="checkbox checkbox-primary">
+        <label for="checkbox3" class="label-width">This helped me think of some things I'd like to  do in my future</label>
+       <input type="checkbox" id="Future"  
+                [(ngModel)]="item.Future"  [ngModelOptions]="{standalone: true}" > 
+      </div></td>
+  </tr>
+  <tr>
+    <td colspan="2" ><div class="checkbox checkbox-primary">
+        <label for="checkbox4" class="label-width"> I haven't tried this, but I'd like to.</label>
+        <input type="checkbox" id="Try"  
+                [(ngModel)]="item.Try"  [ngModelOptions]="{standalone: true}" > 
+      </div></td>
+  </tr>
+       </table>
+  </td>
+ </tr>
+  </tbody>
+</table>
+</div>
+ <div class="clearfix"> </div>
+      <div *ngIf="ExpLearning.dirty && ExpLearning.errors ">
+        <span>
+      <span *ngIf="ExpLearning.errors.invalidText" 
+      style="padding-left:10px;text-align:right;" class="error-color">
+      {{errorMessage.script_tags_error}}</span>
+        <span *ngIf="ExpLearning.errors.maxlength" style="padding-left:10px;text-align:right;" class="error-color">
+      {{errorMessage.usernotes_limit}}</span>
+        </span>
+      </div><br>
+      <div *ngIf="(report=='')" >
+        <button type="submit" class="btn btn-red-plp"  [disabled]="!ExperientialLearningForm.valid">
+          <i class="fa fa-save white-color"> </i> Save Informatiom</button>
+      </div>
+    </div>
+  </div>
+</form>

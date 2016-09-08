@@ -1,42 +1,75 @@
-
-<PLP-nav-header [header]="sectionObject" [report-status]="report"></PLP-nav-header>
+<PLP-nav-header [header]="sectionObject" (changeView)="changeView($event)" [report-status]="report">
+</PLP-nav-header>
 <form>
-<div class="row">
-    
-        <div class="col-md-10 form-group">  
-              
- <div class="table-responsive"> 
-     
-       <table class="plp-table table table-bordered table-striped table-hover">
-  <thead class="thead-inverse">
-    <tr>
-      <th>Occupation</th>
-      <th>Date Saved</th>
-      <th>What I Learned</th>
+  <div class="row">
 
-    </tr>
-  </thead>
-  <tbody>
+    <div class="col-md-10 col-md-offset-1 form-group">
 
-    <tr *ngFor='let item of occAndClusterData'>
-        <td>{{item.Title}}</td>
-      <td>{{item.UpdatedTimeStamp}}</td>
-      <td>{{item.UserNotes}}</td>      
-    </tr>
-   
-     
-  </tbody>
-</table>
-      
-       
+      <div class="desktop-table">
 
-  
-  </div>
-        </div>
+        <table class="plp-table table table-bordered table-striped table-hover">
+          <thead class="thead-inverse">
+            <tr class="table-header-color">
+              <th>Occupation</th>
+              <th>Date Saved</th>
+              <th>What I Learned</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="occAndClusterData && occAndClusterData.length == 0" align="center">
+              <td colspan="3" style="font-size:18px;">{{tableNoData}}</td>
+            </tr>
+            <tr *ngFor='let item of occAndClusterData'>
+              <td>{{item.Title}}</td>
+              <td>{{item.UpdatedTimeStamp | customDate}}</td>
+              <!-- | date:"MM/dd/yyyy"-->
+              <td>{{item.UserNotes}}</td>
+            </tr>
+
+
+          </tbody>
+        </table>
         <div class="clearfix"> </div>
- <div *ngIf="(report=='')" class="col-md-5 form-group">
-          <button class="btn btn-red-plp" type="button"><i class="fa fa-save white-color"> </i> Update occupation Information </button>
- 
-        </div>
       </div>
+      <div class="mobile-table" style="width: 100%;">
+        <table class="plp-table table table-bordered table-striped table-hover">
+
+          <tbody>
+
+
+            <tr *ngIf="occAndClusterData && occAndClusterData.length == 0" align="center">
+              <td colspan="3" style="font-size:18px;">{{tableNoData}}</td>
+            </tr>
+            <tr *ngFor='let item of occAndClusterData'>
+              <td>
+                <table>
+                  <tr>
+
+                    <td> Occupation</td>
+                    <td>{{item.Title}}</td>
+                  </tr>
+                  <tr>
+                    <td>Date Saved</td>
+                    <td>{{item.UpdatedTimeStamp | customDate}}</td>
+                  </tr>
+                  <!-- | date:"MM/dd/yyyy"-->
+                  <tr>
+                    <td>What I Learned</td>
+                    <td>{{item.UserNotes}}</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+
+        <div class="clearfix"> </div>
+
+
+      </div>
+    </div>
+
+  </div>
 </form>

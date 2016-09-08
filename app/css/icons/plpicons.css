@@ -1,0 +1,106 @@
+@font-face {
+	font-family: "plpicons";
+	src: url('./fonts/plpicons.eot');
+	src: url('./fonts/plpicons.eot?#iefix') format('eot'),
+		url('./fonts/plpicons.woff2') format('woff2'),
+		url('./fonts/plpicons.woff') format('woff'),
+		url('./fonts/plpicons.ttf') format('truetype'),
+		url('./fonts/plpicons.svg#plpicons') format('svg');
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: "plpicons"!important;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	/* speak: none; only necessary if not using the private unicode range (firstGlyph option) */
+	text-decoration: none;
+	text-transform: none;
+}
+
+
+.icon-action-plan:before {
+	content: "\E001";
+}
+
+.icon-add-circular-button:before {
+	content: "\E002";
+}
+
+.icon-back-left-arrow:before {
+	content: "\E003";
+}
+
+.icon-career-clusters-interest:before {
+	content: "\E004";
+}
+
+.icon-career-goals:before {
+	content: "\E005";
+}
+
+.icon-comments-sign:before {
+	content: "\E006";
+}
+
+.icon-course-plan:before {
+	content: "\E007";
+}
+
+.icon-education-plans:before {
+	content: "\E008";
+}
+
+.icon-employment-historyWork:before {
+	content: "\E009";
+}
+
+.icon-experiential-learning:before {
+	content: "\E00A";
+}
+
+.icon-extracurricular-activities:before {
+	content: "\E00B";
+}
+
+.icon-grad-requirement:before {
+	content: "\E00C";
+}
+
+.icon-occ-and-clusters-interest:before {
+	content: "\E00D";
+}
+
+.icon-personal-info:before {
+	content: "\E00E";
+}
+
+.icon-postsecondary-schools:before {
+	content: "\E00F";
+}
+
+.icon-prog-of-study-of-interest:before {
+	content: "\E010";
+}
+
+.icon-remove:before {
+	content: "\E011";
+}
+
+.icon-self-knowledge-career-assess:before {
+	content: "\E012";
+}
+
+.icon-support-network:before {
+	content: "\E013";
+}
+
+.icon-test-scores:before {
+	content: "\E014";
+}
+
+.icon-volun-comm-service:before {
+	content: "\E015";
+}

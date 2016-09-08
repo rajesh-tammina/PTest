@@ -7,9 +7,9 @@ System.register([], function(exports_1, context_1) {
         execute: function() {
             ReflectionModel = (function () {
                 function ReflectionModel() {
-                    this.UpdatedTimeStamp = new Date;
+                    this.UpdatedTimeStamp = "";
                     this.UserNotes = "";
-                    this.Today = new Date;
+                    this.Today = "";
                 }
                 return ReflectionModel;
             }());

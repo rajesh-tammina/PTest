@@ -42,6 +42,8 @@ System.register(['@angular/core', '@angular/common', '../shared/PLP-nav-header.c
                     this.apiJson = apiJson;
                     this.shared = shared;
                     this.report = "";
+                    this.changeInrView = new core_1.EventEmitter();
+                    this.containResult = new core_1.EventEmitter();
                     this.section = "ActionPlan";
                     this.field = "ActionPlan";
                 }
@@ -49,10 +51,24 @@ System.register(['@angular/core', '@angular/common', '../shared/PLP-nav-header.c
                     this.sectionObject = this.shared.getSectionObject(this.section);
                     this.questionObject = this.shared.getQuestion(this.section);
                 };
+                ActionPlanComponent.prototype.changeView = function (evnt) {
+                    this.changeInrView.emit(evnt);
+                };
+                ActionPlanComponent.prototype.changeFilledStatus = function (evnt) {
+                    this.containResult.emit(evnt);
+                };
                 __decorate([
                     core_1.Input('report-status'), 
                     __metadata('design:type', Object)
                 ], ActionPlanComponent.prototype, "report", void 0);
+                __decorate([
+                    core_1.Output('changeView'), 
+                    __metadata('design:type', Object)
+                ], ActionPlanComponent.prototype, "changeInrView", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', Object)
+                ], ActionPlanComponent.prototype, "containResult", void 0);
                 ActionPlanComponent = __decorate([
                     core_1.Component({
                         selector: 'action-plan',

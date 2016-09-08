@@ -1,47 +1,44 @@
-<PLP-nav-header [header]="sectionObject" [report-status]="report"></PLP-nav-header>
+<PLP-nav-header [header]="sectionObject" (changeView)="changeView($event)" [report-status]="report"></PLP-nav-header>
 <form [ngFormModel]="educationForm" >
-      
-      <div class="row">
-        <div class="col-md-10 form-group">  
-          <label class="question-head"><i class="fa fa-user"> </i>
-          <b>{{ questionObject.questions[0] }}</b>  
-           <br>Last saved on {{educationPlanCheck.UpdatedTimeStamp | date:"dd/MM/yyyy"}}<br>
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1 form-group">
+        <div *ngIf="edited" class="alert alert-success">
+    <strong>Success!</strong> {{successLabel}}
+  </div>
+  <div *ngIf="errorVal" class="alert alert-danger">
+    <strong>Oops!</strong> {{successLabel}}
+  </div>
+      <label class="question-head">
+         <p class="ptitle">{{ questionObject.questions[0] }}</p> 
+           Last Saved On {{educationSavedDt | customDate}}<!-- | date:"MM/dd/yyyy"-->
 </label>
- 
-       <table class="plp-table table table-bordered table-striped table-hover">
-  <tbody>
-    <tr *ngFor="let item of educationFieldList; let even = even;let odd = odd;let indx = index">
-      <td *ngIf="even">
-         <input type="checkbox"  id="{{educationFieldList[indx].value}}" 
-          [(ngModel)]="educationFieldList[indx].selected" name="{{educationFieldList[indx].value}}"
-            >
-         <p class="checkboxtitle"> <label for="BachelorDegree">{{educationFieldList[indx].label}}</label></p>
-      </td>
-       <td *ngIf="even">
-         <input type="checkbox"  id="{{educationFieldList[indx+1].value}}" 
-           [(ngModel)]="educationFieldList[indx+1].selected" name="{{educationFieldList[indx+1].value}}" 
-       >
-          <p class="checkboxtitle"><label for="AssociateDegree">{{educationFieldList[indx+1].label}}</label></p>
-       </td>
-    </tr>
+
+      <table class="plp-table table table-bordered table-striped table-hover">
+        <tbody>
+          <tr *ngFor="let item of educationFieldList; let even = even;let odd = odd;let indx = index">
+            <td *ngIf="even">
+              <input type="checkbox" id="{{educationFieldList[indx].value}}" [(ngModel)]="educationFieldList[indx].selected" name="{{educationFieldList[indx].value}}">
+              <p class="checkboxtitle"> <label for="BachelorDegree">{{educationFieldList[indx].label}}</label></p>
+            </td>
+            <td *ngIf="even">
+              <input type="checkbox" id="{{educationFieldList[indx+1].value}}" [(ngModel)]="educationFieldList[indx+1].selected" name="{{educationFieldList[indx+1].value}}">
+              <p class="checkboxtitle"><label for="AssociateDegree">{{educationFieldList[indx+1].label}}</label></p>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
    
-  </tbody>
-</table>
- 
- 
-
-
-
-        </div>
-         <div *ngIf="(report=='')" class="col-md-3 form-group">
-    <button type="Submit" class="btn btn-red-plp" (click)="saveEducationPlanCheck()">
+    <div *ngIf="(report=='')" >
+      <button type="Submit" class="btn btn-red-plp" (click)="saveEducationPlanCheck()">
       <i class="fa fa-save white-color"  > </i>
        Save Information</button>
 
+    </div>
   </div>
-      </div>
-     
- 
-</form>
-<reflection  [fieldName]="field" [sectionName] = "section" [question]="questionObject.questions[1]"
- [report-status]="report"></reflection>
+ </div>
+
+</form><br>
+<reflection [fieldName]="field" [sectionName]="section" (containResult)="changeFilledStatus($event)" [question]="questionObject.questions[1]"
+  [report-status]="report"></reflection>

@@ -1,53 +1,103 @@
-<PLP-nav-header [header]="sectionObject" [report-status]="report"></PLP-nav-header>
+<PLP-nav-header [header]="sectionObject" (changeView)="changeView($event)" [report-status]="report"></PLP-nav-header>
 <form>
-<div class="row">
- 
-  <div class="col-md-10 form-group">
-    <p class="question-head">{{ questionObject.questions[0] }}</p>
-    <div class="table-responsive">
-      <table class="plp-table table table-bordered table-striped table-hover">
-        <thead class="thead-inverse">
-          <tr>
-             <th rowspan="2" class="vert-align-m" style="vertical-align: middle!important;">Subject</th>
-            <th >Credit<br>
-Requirements</th>
-            <th colspan="2">Credits</th>
-          </tr>
-          <tr>
-            <th>{{ graduationRequirementsData.Titles.ReqColTitle1  }}</th>
-            <th>{{ graduationRequirementsData.Titles.ReqColTitle2  }}</th>
-            <th>{{ graduationRequirementsData.Titles.ReqColTitle3  }}</th>
-          </tr>
-        </thead>
+  <div class="row">
+
+    <div class="col-md-10 col-md-offset-1 form-group">
+      <!--<p class="question-head">{{ questionObject.questions[0] }}</p>-->
+      <div class="desktop-table">
+        <table class="plp-table table table-bordered table-striped table-hover">
+          <thead class="thead-inverse">
+            <tr>
+              <th rowspan="2" class="vert-align-m" >Subject</th>
+              <th>Credit<br> Requirements
+              </th>
+              <th colspan="2">Credits</th>
+            </tr>
+            <tr>
+              <th>{{ graduationRequirementsData.Titles.ReqColTitle1 }}</th>
+              <th>{{ graduationRequirementsData.Titles.ReqColTitle2 }}</th>
+              <th>{{ graduationRequirementsData.Titles.ReqColTitle3 }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of graduationRequirementsData.ReqItems">
+              <td>{{ item.Subject }} </td>
+              <td>{{ item.Credit1 }}</td>
+              <td>{{ item.Credit2 }}</td>
+              <td>{{ item.Credit3 }}</td>
+            </tr>
+
+          </tbody>
+          <tfoot class="thead-inverse">
+            <tr>
+              <th>Total</th>
+              <th>{{ graduationRequirementsData.Totals.Credit1 }}</th>
+              <th>{{ graduationRequirementsData.Totals.Credit2 }}</th>
+              <th>{{ graduationRequirementsData.Totals.Credit3 }}</th>
+            </tr>
+          </tfoot>
+        </table>
+
+
+
+      </div>
+
+      <!-- mobile table  -->
+       <div class="mobile-table">
+        <table style="width: 100%;">
+           <tr *ngFor="let item of graduationRequirementsData.ReqItems">
+             <td>
+      <table  class="table-graduation plp-table table   table-hover">
         <tbody>
-         <tr *ngFor="let item of graduationRequirementsData.ReqItems">
-            <td>{{ item.Subject }} </td>
-            <td>{{ item.Credit1 }}</td>
-            <td><input type="text" class="form-control" [(ngModel)]="item.Credit2" [ngModelOptions]="{standalone: true}"></td>
-            <td><input type="text" class="form-control" [(ngModel)]="item.Credit3" [ngModelOptions]="{standalone: true}"></td>
-          </tr>
-          
-       
-         
-        </tbody>
-        <thead class="thead-inverse">
           <tr>
-            <th>Total</th>
-            <th>{{ graduationRequirementsData.Totals.Credit1 }}</th>
-            <th>{{ graduationRequirementsData.Totals.Credit2 }}</th>
-            <th>{{ graduationRequirementsData.Totals.Credit3 }}</th>
+            <td><b>Subject </b></td>
+            <td>{{ item.Subject }} </td>
           </tr>
-        </thead>
+          <tr>
+            <td><b>Credit
+      Requirements</b></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="border-blank">&nbsp;&nbsp;&nbsp;2015 and Beyond:</td>
+            <td class="border-blank">{{ item.Credit1 }}</td>
+          </tr>
+          <tr>
+            <td><b>Credits</b></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="border-blank">&nbsp;&nbsp;&nbsp;Planned:</td>
+            <td class="border-blank">{{ item.Credit2 }} </td>
+          </tr>
+          <tr>
+            <td class="border-blank">&nbsp;&nbsp;&nbsp;Completed:</td>
+            <td class="border-blank">{{ item.Credit3 }}</td>
+          </tr>
+           </tbody>
+<tfoot>
+          <tr>
+            <td><b>Total </b></td>
+            <td>{{ graduationRequirementsData.Totals.Credit1 }} &nbsp; {{ graduationRequirementsData.Totals.Credit2 }} &nbsp; {{ graduationRequirementsData.Totals.Credit3 }}</td>
+          </tr>
+          </tfoot>
+       
       </table>
-        </div>
-      <p><em>Students must complete algebra I by 8th grade and algebra II or its equivalent before graduation. Science requirement must include one credit in biology, chemistry and physics or an approved course credit in CTE.</em> </p>
-      
-  </div>
-  <div class="clearfix"> </div>
-      <div *ngIf='(report=="")' class="col-md-5 form-group">
+      </td>
+      </tr>
+        </table>
+       </div>
+      <p><em>Students must complete algebra I by 8th grade and 
+        algebra II or its equivalent before graduation.
+         Science requirement must include one credit in biology, 
+         chemistry and physics or an approved course credit in CTE.</em> </p>
+
+    </div>
+    <div class="clearfix"> </div>
+    <!--<div *ngIf='(report=="")' class="col-md-5 form-group">
           <button class="btn btn-red-plp plf-dots3" (click)="postGraduationRequirementsData()" type="button"><i class="fa fa-save white-color"> </i> Update Planned & Compleated Cre3dits</button>
  
       
-    </div>
-</div>
+    </div>-->
+  </div>
 </form>

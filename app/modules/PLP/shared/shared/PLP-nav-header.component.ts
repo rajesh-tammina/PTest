@@ -1,4 +1,4 @@
-import { Component,Input,Output } from '@angular/core';
+import { Component,Input,Output,EventEmitter } from '@angular/core';
 
 import { ROUTER_DIRECTIVES, Router } from "@angular/router";
 
@@ -9,8 +9,17 @@ import { ROUTER_DIRECTIVES, Router } from "@angular/router";
 })
 export class PLPNavHeaderComponent {
   @Input('header') header="";
- @Input('report-status') report="";
+  @Input('report-status') report="";
+  @Output() changeView = new EventEmitter();
   constructor(){
     //alert("PLP nav header is:"+JSON.stringify(this.header));
+  }
+
+  loadPrevious(){
+    this.changeView.emit(this.header.previousSec);
+  }
+
+  loadNext(){
+    this.changeView.emit(this.header.nextSec);
   }
 }

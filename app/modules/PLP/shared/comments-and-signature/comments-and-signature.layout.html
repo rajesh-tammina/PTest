@@ -1,18 +1,38 @@
-<PLP-nav-header [header]="sectionObject" [report-status]="report"></PLP-nav-header>
-<form>
-
-
+<PLP-nav-header [header]="sectionObject" (changeView)="changeView($event)" [report-status]="report"></PLP-nav-header>
+<form [ngFormModel]="CommentAndSigForm" (ngSubmit)="SaveComments()">
   <div class="row">
-    <div class="col-md-10 form-group">
-      <label class="question-head"><b>Comments</b> <br> </label>
-      <textarea rows="3" name="commentsAndSignature" class="form-control" placeholder="Enter your comments" [(ngModel)]="commentsAndSignatureData.Comment"></textarea>
-    </div>
+    <div class="col-md-10 col-md-offset-1 form-group">
+       <div *ngIf="edited" class="alert alert-success">
+    <strong>Success!</strong> {{successLabel}}
   </div>
-
-  <div *ngIf="(report=='')" class="col-md-3 form-group">
-    <button type="button" class="btn btn-red-plp"><i class="fa fa-save white-color"> </i> Update Comments</button>
-
+  <div *ngIf="errorVal" class="alert alert-danger">
+    <strong>Oops!</strong> {{successLabel}}
   </div>
-  
-
+      <label class="question-head"><b>Comments</b>  
+     <span *ngIf="Comment.touched && Comment.errors">
+                           <span *ngIf="Comment.errors.invalidText" 
+                             style="padding-left:10px;text-align:right;" class="error-color">
+                           {{errorMessage.script_tags_error}}</span>
+                           <span *ngIf="Comment.errors.maxlength" 
+                             style="padding-left:10px;text-align:right;" class="error-color">
+                           {{errorMessage.comment_limit}}</span> 
+                   </span><br> </label>
+      <textarea id="Comment" rows="3" name="commentsAndSignature" class="form-control" placeholder="Enter your comments" ngControl="Comment"
+        #Comment="ngForm" [(ngModel)]="commentsAndSignatureData.Comment"></textarea>
+        <br>
+  <div>
+    <label class="question-head"><b>Signature:</b><br></label>
+  </div>
+ <div class="col-md-5 form-group">
+    <input type="checkbox" id="Signature" [(ngModel)]="commentsAndSignatureData.Signature" name="Signature">
+    <p class="checkboxtitle">
+      <label for="Signature"> Check to digitally sign your Personal Learning Plan.</label><br></p>
+  </div>
+<div class="clearfix"> </div>
+ <div *ngIf="(report=='')" >
+     <button type="submit" class="btn btn-red-plp" [disabled]="!CommentAndSigForm.valid">
+    <i class="fa fa-save white-color"> </i> Update Comments/Signature</button>
+ </div>
+ </div>
+ </div>
 </form>
